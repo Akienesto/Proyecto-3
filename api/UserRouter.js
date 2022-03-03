@@ -178,10 +178,10 @@ const accesToken =(user) =>{
 }
 module.exports = UserRouter;
 
-// UserRouter.get("/allUsers", auth, async (req, res)=>{
-//     let allUsers = await User.find({})
-//     return res.status(200).send({
-//         succes:true,
-//         allUsers
-//     })
-// })
+UserRouter.get("/allUsers", auth, async (req, res)=>{
+    let allUsers = await User.find({})
+    return res.status(200).send({
+        succes:true,
+        allUsers
+    })
+})
