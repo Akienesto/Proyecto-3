@@ -147,15 +147,16 @@ UserRouter.post("/login", async (req, res) =>{
 })
 
   UserRouter.post("/list", auth, async (req, res) => {
-    const { userId, movieId, action } = req.body;
+    const { movieId, action } = req.body;
+    const {id} = req.user
     try {
       switch (action) {
         case "add":
-          await User.findByIdAndUpdate(userId, { $push: { list: movieId } });
+          await User.findByIdAndUpdate(id, { $push: { list: movieId } });
           break;
   
         case "drop":
-          await User.findByIdAndUpdate(userId, { $pull: { list: movieId} });
+          await User.findByIdAndUpdate(id, { $pull: { list: movieId} });
           break;
   
         default:
@@ -178,10 +179,10 @@ const accesToken =(user) =>{
 }
 module.exports = UserRouter;
 
-UserRouter.get("/allUsers", auth, async (req, res)=>{
-    let allUsers = await User.find({})
-    return res.status(200).send({
-        succes:true,
-        allUsers
-    })
-})
+// UserRouter.get("/allUsers", auth, async (req, res)=>{
+//     let allUsers = await User.find({})
+//     return res.status(200).send({
+//         succes:true,
+//         allUsers
+//     })
+// })

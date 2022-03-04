@@ -2,17 +2,18 @@ const mongoose = require("mongoose")
 
 
 const CommentsSchema = new mongoose.Schema({
-    // comment: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: "Movie",
-    //   }
     comment:{
-        type: String
+        type: String,
+        required: true
     },
-    user: [{
+    user: {
         type: mongoose.Types.ObjectId,
         ref: "User",
-      }],
+      },
+    movie: {
+        type: mongoose.Types.ObjectId,
+        ref: "Movie"
+    }
 },{timestamps:true}
 )
 

@@ -8,7 +8,7 @@ const ScoreSchema = new mongoose.Schema({
     },
     user:{
         type: mongoose.Types.ObjectId,
-        ref: "User",
+        ref: "User"
     }
 },{timestamps:true}
 )

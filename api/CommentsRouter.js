@@ -17,14 +17,13 @@ CommentsRouter.post("/newComment", auth, async (req, res) => {
   
     let newComment = await comentario.save();
   
-    let commentPost = await Movie.findByIdAndUpdate(id, {
-      $push: { Comments: newComment._id },
+    await Movie.findByIdAndUpdate(id, {
+      $push: { comment: newComment._id },
     })
   
     return res.status(200).send({
       success: true,
-      comment: newComment,
-      commentPost
+      comment: newComment
     })
 }
     catch (error) {

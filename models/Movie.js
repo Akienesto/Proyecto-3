@@ -22,17 +22,21 @@ const MovieSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    comment:{
+    comment:[
+        {
         type: mongoose.Types.ObjectId,
         ref: "Comments"
     },
+],
     likes:{
         type: Array
     },
-    score:{
+    score:[
+        {
         type: mongoose.Types.ObjectId,
         ref: "Score"
-    }
+    },
+]
 },{timestamps:true}
 )
 
