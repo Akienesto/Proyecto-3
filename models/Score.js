@@ -9,6 +9,10 @@ const ScoreSchema = new mongoose.Schema({
     user:{
         type: mongoose.Types.ObjectId,
         ref: "User"
+    },
+    movie:{
+        type: mongoose.Types.ObjectId,
+        ref: "Movie"
     }
 },{timestamps:true}
 )

@@ -98,15 +98,16 @@ MovieRouter.get("/allMovies", async (req, res)=>{
 })
 
 MovieRouter.post("/likes", auth, async (req, res) => {
-    const { userId, movieId, action } = req.body;
+    const {movieId, action } = req.body;
+    const {id} = req.user
     try {
       switch (action) {
         case "like":
-          await Movie.findByIdAndUpdate(movieId, { $push: { likes: userId} });
+          await Movie.findByIdAndUpdate(movieId, { $push: { likes: id} });
           break;
   
         case "unlike":
-          await Movie.findByIdAndUpdate(movieId, { $pull: { likes: userId} });
+          await Movie.findByIdAndUpdate(movieId, { $pull: { likes: id} });
           break;
   
         default:
