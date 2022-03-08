@@ -111,7 +111,7 @@ MovieRouter.post("/likes", auth, async (req, res) => {
           await Movie.findByIdAndUpdate(movieId, { $push: { likes: id} });
           break;
   
-        case "unlike":
+        case "dislike":
           await Movie.findByIdAndUpdate(movieId, { $pull: { likes: id} });
           break;
   

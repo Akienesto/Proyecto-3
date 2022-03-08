@@ -7,7 +7,7 @@ const authAdmin = require("../middleware/authAdmin");
 
 
 ActorsRouter.post("/newActor", auth, async (req, res) =>{
-    const {name, born, bio, image, movieId, films } = req.body
+    const {name, born, bio, image, films } = req.body
     const user = req.user.id
     try {
         let actor = new Actors({
@@ -15,7 +15,6 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
         born,
         bio,
         image,
-        movieId,
         films
     })
     if(!user){
@@ -27,15 +26,15 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
 
     let newActor = await actor.save();
   
-    await Movie.findByIdAndUpdate(movieId, {
+    await Movie.findByIdAndUpdate(films, {
       $push: { cast: newActor._id }
     })
 
-    let newFilm = await actor.save();
+    // let newFilm = await actor.save();
 
-    await Actors.findByIdAndUpdate(movieId, {
-        $push: { films: newFilm._id }
-    })
+    // await Actors.findByIdAndUpdate(movieId, {
+    //     $push: { films: newFilm._id }
+    // })
 
     await actor.save()
     return res.status(200).send({

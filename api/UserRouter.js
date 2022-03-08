@@ -57,11 +57,12 @@ UserRouter.put("/modifyUser/:id", auth, async (req,res) =>{
     }
 })
 
-UserRouter.delete("/deleteUser/:id", auth, async (req,res) =>{
-    const {id} = req.params
-    const user = req.body             
+UserRouter.delete("/deleteUser", auth, async (req,res) =>{
+    // const {id} = req.params
+    // const user = req.body  
+    const {id} = req.user           
     try {
-    await User.findByIdAndDelete(id, user)    
+    await User.findByIdAndDelete(id)    
     return res.status(200).send({
         succes:true,
         message: "Usuario borrado"
