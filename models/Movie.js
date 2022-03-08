@@ -14,12 +14,13 @@ const MovieSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // cast: [{
-    //     type: mongoose.Types.ObjectId,
-    //     ref: "Actors"
-    // },],
-    cast: {
-        type: Array
+    cast: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Actors"
+    },],
+    image:{
+        type: String,
+        required: true
     },
     genre: {
         type: Array,
@@ -39,6 +40,7 @@ const MovieSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Score"
     },
+
 ]
 },{timestamps:true}
 )

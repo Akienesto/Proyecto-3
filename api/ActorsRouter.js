@@ -1,18 +1,21 @@
 const express = require("express");
 const Actors = require("../models/Actors");
 const ActorsRouter = express.Router();
+const Movie = require("../models/Movie");
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 
 
 ActorsRouter.post("/newActor", auth, async (req, res) =>{
-    const {name, born, bio, films } = req.body
+    const {name, born, bio, image, movieId, films } = req.body
     const user = req.user.id
     try {
         let actor = new Actors({
         name,
         born,
         bio,
+        image,
+        movieId,
         films
     })
     if(!user){
@@ -21,6 +24,18 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
             message: "Primero logueate"
         })
     }
+
+    let newActor = await actor.save();
+  
+    await Movie.findByIdAndUpdate(movieId, {
+      $push: { cast: newActor._id }
+    })
+
+    let newFilm = await actor.save();
+
+    await Actors.findByIdAndUpdate(movieId, {
+        $push: { films: newFilm._id }
+    })
 
     await actor.save()
     return res.status(200).send({
@@ -38,9 +53,9 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
 
 ActorsRouter.put("/modifyActor/:id", auth, authAdmin, async (req,res) =>{
     const {id} = req.params
-    const {name, born, bio, films} = req.body            
+    const {name, born, bio, image, films} = req.body            
     try {
-    await Actors.findByIdAndUpdate(id, {name, born, bio, films})    
+    await Actors.findByIdAndUpdate(id, {name, born, bio, image, films})    
     return res.status(200).send({
         succes:true,
         message: "Actor modificado"
@@ -73,12 +88,14 @@ ActorsRouter.delete("/deleteActor/:id", auth, authAdmin, async (req,res) =>{
 
 ActorsRouter.get("/getActor/:id", async (req, res)=>{
     const {id} = req.params
-    try {
+        try {
         let actor = await Actors.findById(id)
         return res.status(200).send({
             succes: true,
-            actor
+            actor,
+          
         })
+
     } catch (error) {
         return res.status(500).send({
             succes: false,

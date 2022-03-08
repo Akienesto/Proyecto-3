@@ -3,18 +3,20 @@ const Movie = require("../models/Movie");
 const MovieRouter = express.Router();
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
+const Actors = require("../models/Actors");
 
 
 MovieRouter.post("/newMovie", auth, async (req, res) =>{
-    const {title, year, argument, cast, genre} = req.body
+    const {title, year, argument, genre, image} = req.body
     const user = req.user.id
+    const {cast} = req.params
     try {
         let movie = new Movie({
         title,
         year,
         argument,
-        cast,
-        genre
+        genre,
+        image
     })
     if(!user){
         return res.status(400).send({
@@ -39,9 +41,9 @@ MovieRouter.post("/newMovie", auth, async (req, res) =>{
 
 MovieRouter.put("/modifyMovie/:id", auth, authAdmin, async (req,res) =>{
     const {id} = req.params
-    const {title, year, argument, cast, genre} = req.body            
+    const {title, year, argument, cast, genre, image} = req.body            
     try {
-    await Movie.findByIdAndUpdate(id, {title, year, argument, cast, genre})    
+    await Movie.findByIdAndUpdate(id, {title, year, argument, cast, genre, image})    
     return res.status(200).send({
         succes:true,
         message: "Película modificada"
@@ -75,7 +77,10 @@ MovieRouter.delete("/deleteMovie/:id", auth, authAdmin, async (req,res) =>{
 MovieRouter.get("/getMovie/:id", async (req, res)=>{
     const {id} = req.params
     try {
-        let movie = await Movie.findById(id)
+        let movie = await Movie.findById(id).
+        populate({ path: 'comment', select: 'comment' }).
+        populate({ path: 'score', select: 'score' }).
+        populate({ path: 'cast', select: 'name' })
         return res.status(200).send({
             succes: true,
             movie

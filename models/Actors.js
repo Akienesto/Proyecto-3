@@ -14,6 +14,10 @@ const ActorsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image:{
+        type: String,
+        required: true
+    },
     films: [{
         type: mongoose.Types.ObjectId,
         ref: "Movie"

@@ -2,11 +2,13 @@ const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
 require("dotenv").config();
+const cloudinary = require('cloudinary').v2
 const UserRouter = require("./api/UserRouter")
 const MovieRouter = require("./api/MovieRouter")
 const CommentsRouter = require("./api/CommentsRouter")
 const ScoreRouter = require("./api/ScoreRouter")
-// const ActorsRouter = require("./api/ActorsRouter")
+const ActorsRouter = require("./api/ActorsRouter")
+const ImageRouter = require("./api/ImageRouter")
 
 
 app.use(express.json({extended:true}))
@@ -15,7 +17,8 @@ app.use("/api", UserRouter)
 app.use("/api", MovieRouter)
 app.use("/api", CommentsRouter)
 app.use("/api", ScoreRouter)
-// app.use("/api", ActorsRouter)
+app.use("/api", ActorsRouter)
+app.use("/api", ImageRouter)
 
 
 const URL= process.env.mongodb_url
