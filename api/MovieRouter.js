@@ -80,7 +80,9 @@ MovieRouter.get("/getMovie/:id", async (req, res)=>{
         let movie = await Movie.findById(id).
         populate({ path: 'comment', select: 'comment' }).
         populate({ path: 'score', select: 'score' }).
-        populate({ path: 'cast', select: 'name' })
+        populate({ path: 'cast', select: 'name' }).
+        populate({ path: 'character', select: 'name' })
+        // populate({ path: 'likes', select: 'length' })
         return res.status(200).send({
             succes: true,
             movie
@@ -95,7 +97,11 @@ MovieRouter.get("/getMovie/:id", async (req, res)=>{
 })
 
 MovieRouter.get("/allMovies", async (req, res)=>{
-    let allMovies = await Movie.find({})
+    let allMovies = await Movie.find({}).
+    populate({ path: 'comment', select: 'comment' }).
+    populate({ path: 'score', select: 'score' }).
+    populate({ path: 'cast', select: 'name' }).
+    populate({ path: 'characters', select: 'name' })
     return res.status(200).send({
         succes:true,
         allMovies

@@ -35,7 +35,7 @@ CommentsRouter.post("/newComment", auth, async (req, res) => {
     }
   })
 
-CommentsRouter.put("/modifyComment/:id", auth, authAdmin, async (req,res) =>{
+CommentsRouter.put("/modifyComment/:id", auth, async (req,res) =>{
     const {id} = req.params
     const comment = req.body             
     try {

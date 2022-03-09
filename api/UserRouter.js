@@ -58,8 +58,6 @@ UserRouter.put("/modifyUser/:id", auth, async (req,res) =>{
 })
 
 UserRouter.delete("/deleteUser", auth, async (req,res) =>{
-    // const {id} = req.params
-    // const user = req.body  
     const {id} = req.user           
     try {
     await User.findByIdAndDelete(id)    

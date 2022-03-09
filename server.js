@@ -9,6 +9,7 @@ const CommentsRouter = require("./api/CommentsRouter")
 const ScoreRouter = require("./api/ScoreRouter")
 const ActorsRouter = require("./api/ActorsRouter")
 const ImageRouter = require("./api/ImageRouter")
+const CharacterRouter = require("./api/CharacterRouter")
 
 
 app.use(express.json({extended:true}))
@@ -19,6 +20,7 @@ app.use("/api", CommentsRouter)
 app.use("/api", ScoreRouter)
 app.use("/api", ActorsRouter)
 app.use("/api", ImageRouter)
+app.use("/api", CharacterRouter)
 
 
 const URL= process.env.mongodb_url

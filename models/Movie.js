@@ -40,8 +40,12 @@ const MovieSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Score"
     },
+],
+    characters: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Character"
+    },]
 
-]
 },{timestamps:true}
 )
 
