@@ -16,12 +16,15 @@ const ActorsSchema = new mongoose.Schema({
     },
     image:{
         type: String,
-        required: true
     },
     films: [{
         type: mongoose.Types.ObjectId,
         ref: "Movie"
     }, ],
+    characters: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Character"
+    }]
 }, {
     timestamps: true
 })

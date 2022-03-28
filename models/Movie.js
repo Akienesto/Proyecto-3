@@ -19,8 +19,7 @@ const MovieSchema = new mongoose.Schema({
         ref: "Actors"
     },],
     image:{
-        type: String,
-        required: true
+        type: Array
     },
     genre: {
         type: Array,

@@ -17,8 +17,20 @@ UserRouter.post("/newUser", async (req, res) =>{
         role,
     })
 
+    if(!email || !name || !password){
+        return res.send({
+            succes: false,
+            message:"completa todos los campos"
+        })
+    }
+    if(name.length > 15){
+        return res.send({
+            succes: false,
+            message:"Nombre demasiado largo"
+        })
+    }
     if(password.length < 6){
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message:"Contraseña demasiado corta"
         })
@@ -27,6 +39,7 @@ UserRouter.post("/newUser", async (req, res) =>{
     await usuario.save()
     return res.status(200).send({
         succes: true,
+        message:"Usuario creado correctamente",
         usuario
     })
 }
@@ -105,35 +118,37 @@ UserRouter.post("/login", async (req, res) =>{
     try {
     let user = await User.findOne({email})
     if (!password) {
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "Credenciales erroneas"
         })
     }
     if (!email || !password) {
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "No has completado todos los campos"
         })
     }
     if(!user){
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "Usuario no registrado"
         })
     }
     let passwordMatch = await bcrypt.compare(password, user.password)
     if(!passwordMatch) {
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "Credenciales erroneas"
         })
     }
     const token = accesToken({id:user._id})
+    const role = user.role
     return res.status(200).send({
         succes: true,
         message: "Usuario logueado correctamente",
-        token
+        token,
+        role
     })
     
 }

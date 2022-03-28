@@ -20,7 +20,7 @@ CharacterRouter.post("/newCharacter", auth, async (req, res) =>{
         images
     })
     if(!user){
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "Primero logueate"
         })
@@ -88,6 +88,31 @@ CharacterRouter.get("/getCharacter/:id", async (req, res)=>{
         })
     }
  
+})
+
+CharacterRouter.get("/allCharacters", async (req, res)=>{
+    let allCharacters = await Character.find({})
+    return res.status(200).send({
+        succes:true,
+        allCharacters
+    })
+})
+
+CharacterRouter.delete("/deleteCharacter/:id", auth, authAdmin, async (req,res) =>{
+    const {id} = req.params           
+    try {
+    await Character.findByIdAndDelete(id)    
+    return res.status(200).send({
+        succes:true,
+        message: "Personaje borrado"
+    })
+} 
+    catch (error) {
+        return res.status(500).send({
+            succes: false,
+            message: error.message
+        })
+    }
 })
 
 module.exports = CharacterRouter;

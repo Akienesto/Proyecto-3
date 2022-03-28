@@ -4,6 +4,7 @@ const cloudinary = require("cloudinary").v2;
 const bodyParser = require('body-parser');
 require('dotenv').config()
 const auth = require("../middleware/auth");
+const Actors = require("../models/Actors");
 ImageRouter.use(bodyParser.json());
   ImageRouter.use(bodyParser.urlencoded({ extended: true }));
 
@@ -14,9 +15,7 @@ cloudinary.config({
   });
 
 ImageRouter.post("/image-upload", auth, (request, response) => {
-    const data = {
-      image: request.body.image,
-    }
+    const data = { image: request.body.image }
 
     cloudinary.uploader.upload(data.image)
     .then((result) => {
@@ -24,6 +23,7 @@ ImageRouter.post("/image-upload", auth, (request, response) => {
         message: "success",
         result,
       });
+
     }).catch((error) => {
       response.status(500).send({
         message: "failure",
@@ -32,9 +32,6 @@ ImageRouter.post("/image-upload", auth, (request, response) => {
     });
 });
 
-// ImageRouter.get("/",auth, (request, response, next) => {
-//     response.json({ message: "Hey! This is your server response!" });
-//     next();
-//   });
 
 module.exports = ImageRouter;
+

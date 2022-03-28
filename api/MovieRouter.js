@@ -19,20 +19,20 @@ MovieRouter.post("/newMovie", auth, async (req, res) =>{
         image
     })
     if(!user){
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "Primero logueate"
         })
     }
 
     await movie.save()
-    return res.status(200).send({
+    return res.send({
         succes: true,
         movie
     })
 }
     catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })
@@ -81,12 +81,12 @@ MovieRouter.get("/getMovie/:id", async (req, res)=>{
         populate({ path: 'comment', select: 'comment' }).
         populate({ path: 'score', select: 'score' }).
         populate({ path: 'cast', select: 'name' }).
-        populate({ path: 'character', select: 'name' })
-        // populate({ path: 'likes', select: 'length' })
+        populate({ path: 'characters', select: 'name' })
         return res.status(200).send({
             succes: true,
             movie
         })
+
     } catch (error) {
         return res.status(500).send({
             succes: false,
@@ -101,7 +101,8 @@ MovieRouter.get("/allMovies", async (req, res)=>{
     populate({ path: 'comment', select: 'comment' }).
     populate({ path: 'score', select: 'score' }).
     populate({ path: 'cast', select: 'name' }).
-    populate({ path: 'characters', select: 'name' })
+    populate({ path: 'characters', select: 'name' }).
+    populate({ path: 'image', select: 'image' })
     return res.status(200).send({
         succes:true,
         allMovies

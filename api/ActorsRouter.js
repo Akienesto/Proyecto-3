@@ -7,7 +7,7 @@ const authAdmin = require("../middleware/authAdmin");
 
 
 ActorsRouter.post("/newActor", auth, async (req, res) =>{
-    const {name, born, bio, image, films } = req.body
+    const {name, born, bio, image, films ,characters} = req.body
     const user = req.user.id
     try {
         let actor = new Actors({
@@ -15,10 +15,11 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
         born,
         bio,
         image,
-        films
+        films,
+        characters
     })
     if(!user){
-        return res.status(400).send({
+        return res.send({
             succes: false,
             message: "Primero logueate"
         })
@@ -52,9 +53,9 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
 
 ActorsRouter.put("/modifyActor/:id", auth, authAdmin, async (req,res) =>{
     const {id} = req.params
-    const {name, born, bio, image, films} = req.body            
+    const {name, born, bio, image, films, characters} = req.body            
     try {
-    await Actors.findByIdAndUpdate(id, {name, born, bio, image, films})    
+    await Actors.findByIdAndUpdate(id, {name, born, bio, image, films, characters})    
     return res.status(200).send({
         succes:true,
         message: "Actor modificado"
