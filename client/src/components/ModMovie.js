@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import  {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 const ModMovie = () => {
     const [movie, setMovie] = useState({
@@ -24,7 +24,7 @@ const ModMovie = () => {
         setMovie({...movie, [name]: value})
     }
 
-    const registerSubmit = async e => {
+    const movieSubmit = async e => {
         e.preventDefault()
         try {
             const response = await axios.put("http://localhost:5000/api/modifyMovie/:id", {...movie})
@@ -34,12 +34,12 @@ const ModMovie = () => {
             //   navigate("/movies")
             // },3000)
         } catch (error) {
-            setErrorMessage(response.data.message)
+            setErrorMessage(error.response.data.message)
         }
     }
 
     return (
-        <Form className='form1' onSubmit={registerSubmit} >
+        <Form className='form1' onSubmit={movieSubmit} >
         <div className="adds">
           <div className="add1">
             <Form.Group className="mb-3" controlId="formBasicName">

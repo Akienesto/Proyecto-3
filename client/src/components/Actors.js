@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Actors = () => {
     const [actors, setActors] = useState([])
@@ -21,16 +22,22 @@ const Actors = () => {
 
     return(
         <div>
-            {
-                actors.map(Actor =>{
-                    return(
-                        <div key={Actor._id}>
-                            <img href={Actor.image} className="images"/>
-                            <h2>{Actor.name}</h2>
+        {
+            actors.map(Actor =>{
+                return(
+                    <Link key={Actor._id} to={`/actors/${Actor._id}`}>
+                    <div className="wrap">
+                        <div className="divs">
+                          <img src={Actor.image} className="images"/>
                         </div>
-                    )
-                })
-            }
+                        <div className="nombre">
+                          <h6>{Actor.name}</h6>
+                        </div>
+                    </div>
+                    </Link>
+                )
+            })
+        }
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import  {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 const AddMovie = () => {
     const [movie, setMovie] = useState({
@@ -18,28 +18,33 @@ const AddMovie = () => {
     const [succesMessage, setSuccesMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     // const navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     const onChangeInput = event => {
         const {name, value} = event.target
         setMovie({...movie, [name]: value})
     }
 
-    const registerSubmit = async e => {
+    const movieSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:5000/api/newMovie", {...movie})
+            const response = await axios.post("http://localhost:5000/api/newMovie", {...movie},{
+              headers:{
+                "Authorization": token
+              }
+            })
             console.log(response)
             setSuccesMessage(response.data.message)
             // setTimeout(()=>{
             //   navigate("/movies")
             // },3000)
         } catch (error) {
-            setErrorMessage(response.data.message)
+            setErrorMessage(error.response.data.message)
         }
     }
 
     return (
-    <Form className='form1' onSubmit={registerSubmit} >
+    <Form className='form1' onSubmit={movieSubmit} >
       <div className="adds">
         <div className="add1">
           <Form.Group className="mb-3" controlId="formBasicName">
@@ -84,7 +89,7 @@ const AddMovie = () => {
           <Button variant="primary" type="submit">
             Crear película
             </Button>
-        </div>
+      </div>
           <div className="message_ok" style={{display: succesMessage ? "block" : "none"}}>
           {succesMessage}
           </div>

@@ -7,7 +7,7 @@ const ActorsSchema = new mongoose.Schema({
         required: true
     },
     born: {
-        type: Number,
+        type: String,
         required: true
     },
     bio: {

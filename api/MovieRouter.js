@@ -7,16 +7,17 @@ const Actors = require("../models/Actors");
 
 
 MovieRouter.post("/newMovie", auth, async (req, res) =>{
-    const {title, year, argument, genre, image} = req.body
+    const {title, year, argument, genre, image, cast} = req.body
     const user = req.user.id
-    const {cast} = req.params
+    // const {cast} = req.params
     try {
         let movie = new Movie({
         title,
         year,
         argument,
         genre,
-        image
+        image,
+        cast
     })
     if(!user){
         return res.send({
@@ -44,13 +45,13 @@ MovieRouter.put("/modifyMovie/:id", auth, authAdmin, async (req,res) =>{
     const {title, year, argument, cast, genre, image} = req.body            
     try {
     await Movie.findByIdAndUpdate(id, {title, year, argument, cast, genre, image})    
-    return res.status(200).send({
+    return res.send({
         succes:true,
         message: "Película modificada"
     })
 } 
     catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })
@@ -80,15 +81,15 @@ MovieRouter.get("/getMovie/:id", async (req, res)=>{
         let movie = await Movie.findById(id).
         populate({ path: 'comment', select: 'comment' }).
         populate({ path: 'score', select: 'score' }).
-        populate({ path: 'cast', select: 'name' }).
+        populate({ path: 'cast', select: 'name image' }).
         populate({ path: 'characters', select: 'name' })
-        return res.status(200).send({
+        return res.send({
             succes: true,
             movie
         })
 
     } catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })
@@ -103,7 +104,7 @@ MovieRouter.get("/allMovies", async (req, res)=>{
     populate({ path: 'cast', select: 'name' }).
     populate({ path: 'characters', select: 'name' }).
     populate({ path: 'image', select: 'image' })
-    return res.status(200).send({
+    return res.send({
         succes:true,
         allMovies
     })
@@ -126,11 +127,11 @@ MovieRouter.post("/likes", auth, async (req, res) => {
           break;
       }
   
-      return res.status(200).send({
+      return res.send({
         success: true,
       })
     } catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })

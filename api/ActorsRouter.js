@@ -89,7 +89,8 @@ ActorsRouter.delete("/deleteActor/:id", auth, authAdmin, async (req,res) =>{
 ActorsRouter.get("/getActor/:id", async (req, res)=>{
     const {id} = req.params
         try {
-        let actor = await Actors.findById(id)
+        let actor = await Actors.findById(id).
+        populate({ path: 'films', select: 'title image' })
         return res.status(200).send({
             succes: true,
             actor,

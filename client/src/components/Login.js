@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -32,7 +32,7 @@ const Login = () => {
               window.location.href="/home"
             },3000)
         } catch (error) {
-            setErrorMessage(response.data.message)
+            setErrorMessage(error.response.data.message)
         }
     }
   return (

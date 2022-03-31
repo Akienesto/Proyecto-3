@@ -30,7 +30,7 @@ const Register = () => {
               navigate("/login")
             },3000)
         } catch (error) {
-            setErrorMessage(response.data.message)
+            setErrorMessage(error.response.data.message)
         }
     }
 

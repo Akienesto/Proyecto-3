@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import  {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 const AddActor = () => {
     const [actor, setActor] = useState({
@@ -11,34 +11,39 @@ const AddActor = () => {
         bio:"",
         films:"",
         image:"",
-        characters:""
-    })
+        // characters:""
+      })
 
     const [succesMessage, setSuccesMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     // const navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     const onChangeInput = event => {
         const {name, value} = event.target
         setActor({...actor, [name]: value})
     }
 
-    const registerSubmit = async e => {
+    const actorSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:5000/api/newActor", {...actor})
+            const response = await axios.post("http://localhost:5000/api/newActor", {...actor},{
+            headers:{
+              "Authorization": token
+            }
+          })
             console.log(response)
             setSuccesMessage(response.data.message)
             // setTimeout(()=>{
             //   navigate("/actors")
             // },3000)
         } catch (error) {
-            setErrorMessage(response.data.message)
+            setErrorMessage(error.response.data.message)
         }
     }
 
     return (
-    <Form className='form1' onSubmit={registerSubmit} >
+    <Form className='form1' onSubmit={actorSubmit} >
       <div className="adds">
         <div className="add1">
           <Form.Group className="mb-3" controlId="formBasicName">
@@ -76,7 +81,7 @@ const AddActor = () => {
       </div>
       <div className="submit">
           <Button variant="primary" type="submit">
-            Crear película
+            Crear actor
             </Button>
         </div>
           <div className="message_ok" style={{display: succesMessage ? "block" : "none"}}>

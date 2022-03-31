@@ -3,6 +3,11 @@
   height: 150px;
   width: 120px;
   display: inline;
+  margin: 5px;
+}
+.images1 {
+  height: 350px;
+  width: 280px;
 }
 
 /* Register */
@@ -39,9 +44,6 @@
 .Navbar {
   display: flex;
   flex-direction: column;
-}
-.links {
-width: 300px;
 }
 .reg {
   display: flex;
@@ -84,16 +86,85 @@ width: 300px;
   justify-content: center;
   margin: 20px;
 }
-/* Peliculas */
-.movies {
-  display: flex;
-  flex-direction: column;
-  /* flex-wrap: wrap; */
+/* Movies */
+.titles {
   width: 120px;
 }
-.titles {
-  width: min-content;
+.divs {
+  display: inline;
 }
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  display:inline-block;
+  margin: 25px;
+}
+.nombres {
+  text-align: center;
+  width: 120px;
+}
+.cardBody {
+  height: min-content;
+}
+.card {
+  display: inline-block;
+}
+/* Movie */
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+.poster {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px;
+}
+.argument {
+  text-align: center;
+  margin: 15px;
+}
+.genre {
+  margin: 30px;
+}
+.reparto {
+  text-align: center;
+}
+/* Actor */
+.actors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+}
+.wrapActors {
+  display: flex;
+  flex-wrap: wrap;
+  display:inline-block;
+  margin: 15px;
+}
+.filmografia {
+  text-align: center;
+}
+
+/* Logout */
+.logout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+}
+.logoutButton {
+  margin: 20px;
+  border-radius: 5px;
+}
+
+/* Comments */
+.addComment {
+  display: flex;
+  justify-content: center;
+}
+
 /* MEDIA QUERY */
 @media only screen and (max-width: 700px) {
   .adds {
@@ -101,6 +172,16 @@ width: 300px;
     flex-direction: column;
     align-items: center;
     margin: 20px;
+  }
+  .poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  .genre {
+    margin: 30px;
+    text-align: center;
   }
 }
 

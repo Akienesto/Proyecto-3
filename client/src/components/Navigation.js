@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import { FormControl } from "react-bootstrap";
 import { DropdownButton } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function Navigation() {
@@ -17,25 +17,27 @@ function Navigation() {
 const navbarUser = () => {
   return (
     <Navbar bg="light" expand="lg" className="Navbar">
-  <Container>
-        <Navbar.Brand href="#action1">Logo</Navbar.Brand>
+  <Container className="links">
+      <div>
+        <Navbar.Brand href="/home">Logo</Navbar.Brand>
+      </div>
+      <div>
         <Nav.Link href="/Movies">Peliculas</Nav.Link>
+      </div>
+      <div>
         <Nav.Link href="/Actors">Actores</Nav.Link>
-        {/* <Navbar.Brand href="#action4">Registrarse</Navbar.Brand> */}
-        <DropdownButton align="end" title="Usuario" id="dropdown-menu-align-end">
+      </div>
+      <div>
+        <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end" className="drop">
         <Link to = "/login" className="reg">Login</Link>
         <Link to = "/register" className="reg">Registrarse</Link>
         <Link to = "/" className="reg">Perfil</Link>
         <Link to = "/addMovie" className="reg">Añadir película</Link>
         <Link to = "/addActor" className="reg">Añadir actor</Link>
         <Dropdown.Divider />
-        <Link to = "/" className="reg">Logout</Link>
-         {/* <Dropdown.Item eventKey="2">Perfil</Dropdown.Item>
-         <Dropdown.Item eventKey="3">Añadir película</Dropdown.Item>
-         <Dropdown.Item eventKey="4">Añadir actor</Dropdown.Item>
-         <Dropdown.Divider />
-         <Dropdown.Item eventKey="5">Logout</Dropdown.Item> */}
+        <Link to = "/logout" className="reg">Logout</Link>
         </DropdownButton>
+      </div>
   </Container>
   <div >
    <Form className="d-flex">
@@ -56,22 +58,15 @@ const navbarAdmin = () => {
   return (
     <Navbar bg="light" expand="lg" className="Navbar">
   <Container>
-        <Navbar.Brand href="#action1">Logo</Navbar.Brand>
+        <Navbar.Brand href="/home">Logo</Navbar.Brand>
         <Nav.Link href="/Movies">Peliculas</Nav.Link>
         <Nav.Link href="/Actors">Actores</Nav.Link>
-        {/* <Navbar.Brand href="#action4">Registrarse</Navbar.Brand> */}
-        <DropdownButton align="end" title="Usuario" id="dropdown-menu-align-end">
-        {/* <Link to = "/register" className="reg">Personaje</Link> */}
+        <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end">
         <Link to = "/register" className="reg">Comentario</Link>
         <Link to = "/modMovie" className="reg">Película</Link>
         <Link to = "/modActor" className="reg">Actor</Link>
         <Dropdown.Divider />
-        <Link to = "/register" className="reg">Logout</Link>
-         {/* <Dropdown.Item eventKey="2">Perfil</Dropdown.Item>
-         <Dropdown.Item eventKey="3">Añadir película</Dropdown.Item>
-         <Dropdown.Item eventKey="4">Añadir actor</Dropdown.Item>
-         <Dropdown.Divider />
-         <Dropdown.Item eventKey="5">Logout</Dropdown.Item> */}
+        <Link to = "/logout" className="reg">Logout</Link>
         </DropdownButton>
   </Container>
   <div >
@@ -89,12 +84,44 @@ const navbarAdmin = () => {
   )
 }
 
+const navbarLogin = () => {
+  return (
+    <Navbar bg="light" expand="lg" className="Navbar">
+  <Container>
+        <Navbar.Brand href="/home">Logo</Navbar.Brand>
+        <Nav.Link href="/Movies">Peliculas</Nav.Link>
+        <Nav.Link href="/Actors">Actores</Nav.Link>
+        <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end">
+        <Link to = "/login" className="reg">Login</Link>
+        <Link to = "/register" className="reg">Registrarse</Link>
+        <Dropdown.Divider />
+        <Link to = "/logout" className="reg">Logout</Link>
+        </DropdownButton>
+  </Container>
+  <div >
+   <Form className="d-flex">
+        <FormControl
+          type="search"
+          placeholder="Search"
+          className="me-2"
+          aria-label="Search"
+        />
+        <Button variant="outline-success">Search</Button>
+      </Form>
+  </div>
+</Navbar>
+  )
+}
+if (!role) return navbarLogin()
     return (
       <div>
         {
-          role == 0 || !role ? navbarUser() : navbarAdmin()
-        }
+          role == 0  ? navbarUser() : navbarAdmin()
+          // !role ? navbarLogin() : navbarUser()
+          // !role ? navbarLogin()
+          }
       </div>
+     
     )
 }
 export default Navigation;
