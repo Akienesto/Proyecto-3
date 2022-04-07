@@ -8,13 +8,13 @@ const Footer = () => {
   
   return (
     // fixed="bottom"
- <Navbar expand="lg" variant="light" bg="light" className="footer">
+ <Navbar expand="lg" variant="light" className="footer">
   <Container>
     <Navbar.Brand href="#"></Navbar.Brand>
   </Container> 
   <div className="redes">
       <div>
-          <p className ="redes1">Siguenos en : </p>
+          <p className ="redes1 text">Siguenos en : </p>
       </div>
       <div>
         <a href="https://www.instagram.com">
@@ -29,7 +29,7 @@ const Footer = () => {
       </div>
   </div>
   <div  className="dev">
-      <p>Developed by Burzuri &copy;</p>
+      <p className="text">Developed by Burzuri &copy;</p>
   </div>
 </Navbar>
   )

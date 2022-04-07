@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import  {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 // import { useNavigate } from "react-router-dom"
 
 const AddComment = () => {
+    const {movieId} = useParams()
     const [comment, setComment] = useState({})
-
     const [succesMessage, setSuccesMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     // const navigate = useNavigate()
@@ -20,7 +21,7 @@ const AddComment = () => {
     const commentSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:5000/api/newComment", {...comment},{
+            const response = await axios.post(`http://localhost:5000/api/newComment/${movieId}`, {...comment},{
             headers:{
               "Authorization": token
             }
@@ -28,7 +29,7 @@ const AddComment = () => {
             console.log(response)
             setSuccesMessage(response.data.message)
             // setTimeout(()=>{
-            //   navigate("/comments")
+            //   navigate("/movies")
             // },3000)
         } catch (error) {
             setErrorMessage(error.response.data.message)
@@ -39,7 +40,7 @@ const AddComment = () => {
     <Form className="comment" onSubmit={commentSubmit} >
       <div className="adds">
          <div className="form-group">
-           <textarea className="" rows="5" name="name" value={comment.comment} onChange={onChangeInput}></textarea>
+           <textarea className="textArea" rows="6" name="comment" value={comment.comment} onChange={onChangeInput}></textarea>
          </div>
           {/* <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Comentario</Form.Label>
@@ -50,10 +51,10 @@ const AddComment = () => {
             Comentar
             </Button>
         </div>
-          <div className="message_ok" style={{display: succesMessage ? "block" : "none"}}>
+          <div className="message_ok text" style={{display: succesMessage ? "block" : "none"}}>
           {succesMessage}
           </div>
-          <div className="message_ok" style={{display: errorMessage ? "block" : "none"}}>
+          <div className="message_ok text" style={{display: errorMessage ? "block" : "none"}}>
           {errorMessage}
           </div>
        </div>      

@@ -13,6 +13,9 @@ const CommentsSchema = new mongoose.Schema({
     movie: {
         type: mongoose.Types.ObjectId,
         ref: "Movie"
+    },
+    name: {
+        type: String
     }
 },{timestamps:true}
 )

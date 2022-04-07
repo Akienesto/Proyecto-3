@@ -9,9 +9,9 @@ const Actors = require("../models/Actors");
 //   ImageRouter.use(bodyParser.urlencoded({ extended: true }));
 
 cloudinary.config({ 
-    cloud_name: 'akienesto', 
-    api_key: '886219619985597', 
-    api_secret: 'IHKXKEtgFmQwH6gqFec9IWo64UE' 
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
   });
 
 ImageRouter.post("/image-upload", auth, (request, response) => {

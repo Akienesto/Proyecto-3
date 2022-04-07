@@ -6,7 +6,7 @@ const Logout = () => {
     localStorage.removeItem("role")
 
     return(
-        <div className="logout">
+        <div className="logout text">
             <div>
                 <h3>Sesión cerrada con éxito</h3>
             </div>

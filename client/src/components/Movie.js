@@ -1,90 +1,331 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import estrella from "..//imagenes/estrella.png"
 
 const Movie = () => {
-    const {movieId} = useParams()
-    const [pelicula, setMovie] = useState({})
+    const { movieId } = useParams()
+    const [movie, setMovie] = useState([])
     const [cast, setCast] = useState([])
     const [score, setScore] = useState([])
     const [comment, setComment] = useState([])
+    const [likes, setLikes] = useState([])
+    const role = localStorage.getItem("role")
+    const [succesMessage, setSuccesMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const token = localStorage.getItem("token")
+    const navigate = useNavigate()
 
     useEffect(() => {
-        const getMovie = async()=>{
-            const response = await axios.get(`http://localhost:5000/api/getMovie/${movieId}`)
-        
+        const getMovie = async () => {
+            const response = await axios.get(`http://localhost:5000/api/getMovie/${movieId}`,)
+
             console.log(response)
             setMovie(response.data.movie)
             setCast(response.data.movie.cast)
             setScore(response.data.movie.score)
             setComment(response.data.movie.comment)
+            setLikes(response.data.movie.likes)
         }
         getMovie()
-    
-},[])
 
-return(
-    <div>
-        <div className="header">
-           <h2>{pelicula.title}</h2>
-           <h2>{pelicula.year}</h2>
-           {
-                score.map(points =>{
-                    return(
-                        <div className="wrap">
-                              <h6>{points.score}</h6>
-                        </div>
-                    )
-                })
-            }
-        </div>
-        <div className="poster">
-            <div>
-               <img src={pelicula.image} className="images1" alt="poster"/>
-            </div>
-            <div>
-               <h4 className="argument">Argumento</h4> 
-               <p className="argument">{pelicula.argument}</p>
-            </div>
-        </div>
-        <div className="genre">
-            <h4>{pelicula.genre}</h4>
-        </div>
-        <div className="">
-            <h2 className="reparto">Reparto</h2>
-        {
-                cast.map(protas =>{
-                    return(
-                     <Link key={protas._id} to={`/actors/${protas._id}`}>
-                        <div className="wrap">
-                              <img src={protas.image} className="images"/>
-                              <h6 className="nombres">{protas.name}</h6>
-                        </div>
-                     </Link>
-                    )
-                })
-            }
-        </div>
-        <div className="addComment">
-            <Link to={`/addComment/${pelicula._id}`}>
-                <button>Añadir comentario</button>
-            </Link>
-        </div>
+    }, [])
+
+    const deleteMovie = async () => {
+        try {
+            const borrar = await axios.delete(`http://localhost:5000/api/deleteMovie/${movieId}`, {
+                headers:
+                {
+                    "Authorization": token
+                }
+            })
+            setSuccesMessage(borrar.data.message)
+            setTimeout(() => {
+                navigate("/movies")
+            }, 3000)
+        } catch (error) {
+            setErrorMessage(error.borrar.data.message)
+        }
+    }
+
+    const addList = async () => {
+        try {
+            const res2 = await axios.post(`http://localhost:5000/api/list/${movieId}`, { ...movieId }, {
+                headers: {
+                    "Authorization": token
+                }
+            })
+            setSuccesMessage(res2.data.message)
+        } catch (error) {
+            setErrorMessage(error.message)
+        }
+
+    }
+
+    if (role == 1) return (
         <div>
-        {
-                comment.map(comentario =>{
-                    return(
-                        <div className="wrap">
-                              <h6>{comentario.comment}</h6>
+            <div className="header">
+                <h2 className="text">{movie.title}</h2>
+                <h2 className="text">{movie.year}</h2>
+            </div>
+            <div className="score">
+                <div className="lista">
+                    <button onClick={addList} className="buttonCom">Favoritos</button>
+                </div>
+                <div>
+                    {
+                        score.map(points => {
+                            return (
+                                <div className="stars">
+                                    <img src={estrella} alt="estrella" className="estrella" />
+                                    <h5 className="text points">{points.score}/10</h5>
+                                    <Link to={`/newScore/${movie._id}`}>
+                                        <button className="buttonScore">Puntuar</button>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <div className="messages">
+                        <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                            {succesMessage}
                         </div>
-                    )
-                })
-            }
+                        <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                            {errorMessage}
+                        </div>
+                    </div>
+            <div className="poster">
+                <div>
+                    <img src={movie.image} className="images1" alt="poster" />
+                </div>
+                <div>
+                    <h4 className="argument text">Argumento</h4>
+                    <p className="argument text">{movie.argument}</p>
+                </div>
+            </div>
+            <div className="genre">
+                <h4 className="text">{movie.genre}</h4>
+            </div>
+            <div>
+                <h2 className="reparto text">Reparto</h2>
+                {
+                    cast.map(protas => {
+                        return (
+                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                                <div className="wrap">
+                                    <img src={protas.image} className="images" />
+                                    <h6 className="nombres">{protas.name}</h6>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
+            </div>
+            <div className="addComment">
+                <Link to={`/addComment/${movie._id}`}>
+                    <button className="buttonCom">Añadir comentario</button>
+                </Link>
+            </div>
+            <h2 className="argument text">Comentarios</h2>
+            <div>
+                {
+                    comment.map(comentario => {
+                        return (
+                            <div className="wrap">
+                                <Link to={`/getComment/${comentario._id}`} className="deco">
+                                    <p className="text">{comentario.name}</p>
+                                    <p className="text">{comentario.comment}</p>
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className="mods">
+                <button onClick={deleteMovie} className="buttonDel">Borrar</button>
+                <Link key={movie._id} to={`/modMovie/${movie._id}`}><button className="buttonMod">Modificar</button></Link>
+            </div>
+            <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                {succesMessage}
+            </div>
+            <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                {errorMessage}
+            </div>
         </div>
-    </div>
-)
+    )
+
+    if (role == 0) return (
+        <div>
+            <div className="header">
+                <h2 className="text">{movie.title}</h2>
+                <h2 className="text">{movie.year}</h2>
+            </div>
+            <div className="score">
+                <div className="lista">
+                    <button onClick={addList} className="buttonCom">Favoritos</button>
+                </div>
+                <div>
+                    {
+                        score.map(points => {
+                            return (
+                                <div className="stars">
+                                    <img src={estrella} alt="estrella" className="estrella" />
+                                    <h5 className="text points">{points.score}/10</h5>
+                                    <Link to={`/newScore/${movie._id}`}>
+                                        <button className="buttonScore">Puntuar</button>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <div className="messages">
+                        <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                            {succesMessage}
+                        </div>
+                        <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                            {errorMessage}
+                        </div>
+                    </div>
+            <div className="poster">
+                <div>
+                    <img src={movie.image} className="images1" alt="poster" />
+                </div>
+                <div>
+                    <h4 className="argument text">Argumento</h4>
+                    <p className="argument text">{movie.argument}</p>
+                </div>
+            </div>
+            <div className="genre">
+                <h4 className="text">{movie.genre}</h4>
+            </div>
+            <div className="">
+                <h2 className="reparto text">Reparto</h2>
+                {
+                    cast.map(protas => {
+                        return (
+                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                                <div className="wrap">
+                                    <img src={protas.image} className="images" />
+                                    <h6 className="nombres">{protas.name}</h6>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
+            </div>
+            <div className="addComment">
+                <Link to={`/addComment/${movie._id}`}>
+                    <button className="buttonCom">Añadir comentario</button>
+                </Link>
+            </div>
+            <h2 className="argument text">Comentarios</h2>
+            <div>
+                {
+                    comment.map(comentario => {
+                        return (
+                            <div className="wrap">
+                                <Link to={`/getComment/${comentario._id}`} className="deco">
+                                    <p className="text">{comentario.name}</p>
+                                    <p className="text">{comentario.comment}</p>
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </div>
+    )
+
+    if (!role) return (
+        <div>
+            <div className="header">
+                <h2 className="text">{movie.title}</h2>
+                <h2 className="text">{movie.year}</h2>
+            </div>
+            <div className="score">
+                <div className="lista">
+                <Link to={`/login`}><button className="buttonCom">Favoritos</button>  </Link>
+                </div>
+                <div>
+                    {
+                        score.map(points => {
+                            return (
+                                <div className="stars">
+                                    <img src={estrella} alt="estrella" className="estrella" />
+                                    <h5 className="text points">{points.score}/10</h5>
+                                    <Link to={`/login`}>
+                                        <button className="buttonScore">Puntuar</button>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <div className="messages">
+                        <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                            {succesMessage}
+                        </div>
+                        <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                            {errorMessage}
+                        </div>
+                    </div>
+            <div className="poster">
+                <div>
+                    <img src={movie.image} className="images1" alt="poster" />
+                </div>
+                <div>
+                    <h4 className="argument text">Argumento</h4>
+                    <p className="argument text">{movie.argument}</p>
+                </div>
+            </div>
+            <div className="genre">
+                <h4 className="text">{movie.genre}</h4>
+            </div>
+            <div className="">
+                <h2 className="reparto text">Reparto</h2>
+                {
+                    cast.map(protas => {
+                        return (
+                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                                <div className="wrap">
+                                    <img src={protas.image} className="images" />
+                                    <h6 className="nombres">{protas.name}</h6>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
+            </div>
+            <div className="addComment">
+                <Link to={`/login`}>
+                    <button className="buttonScore">Añadir comentario</button>
+                </Link>
+            </div>
+            <h2 className="argument text">Comentarios</h2>
+            <div>
+            {
+                    comment.map(comentario => {
+                        return (
+                            <div className="wrap">
+                                <Link to={`/getComment/${comentario._id}`} className="deco">
+                                    <p className="text">{comentario.name}</p>
+                                    <p className="text">{comentario.comment}</p>
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </div>
+    )
 }
 
 
 
-    export default Movie;
+export default Movie;

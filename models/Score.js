@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const ScoreSchema = new mongoose.Schema({
     score:{
         type: Number,
-        required: true
+        // required: true
     },
     user:{
         type: mongoose.Types.ObjectId,

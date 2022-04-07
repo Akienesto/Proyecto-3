@@ -30,8 +30,8 @@ const Actors = () => {
                         <div className="divs">
                           <img src={Actor.image} className="images"/>
                         </div>
-                        <div className="nombre">
-                          <h6>{Actor.name}</h6>
+                        <div>
+                          <h6 className="nombres">{Actor.name}</h6>
                         </div>
                     </div>
                     </Link>

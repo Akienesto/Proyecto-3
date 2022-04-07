@@ -4,31 +4,37 @@ const CommentsRouter = express.Router();
 const Movie = require("../models/Movie");
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
+const User = require("../models/User");
 
 
-CommentsRouter.post("/newComment", auth, async (req, res) => {
-    const { comment, movieId } = req.body
+CommentsRouter.post("/newComment/:movieId", auth, async (req, res) => {
+    const { movieId } = req.params
+    const { comment } = req.body
     const id = req.user.id
     try {
+        let usuario = await User.findById(id)
+        let nombre = usuario.name
     let comentario = new Comments({
       comment,
       movie: movieId,
-      id
+      user:id,
+      name:nombre
     })
   
     let newComment = await comentario.save();
   
     await Movie.findByIdAndUpdate(movieId, {
-      $push: { comment: newComment._id }
+      $push: { comment: newComment }
     })
   
-    return res.status(200).send({
+    return res.send({
       success: true,
+      message: "Comentario añadido",
       newComment
     })
 }
     catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })
@@ -40,14 +46,14 @@ CommentsRouter.put("/modifyComment/:id", auth, async (req,res) =>{
     const comment = req.body             
     try {
     await Comments.findByIdAndUpdate(id, comment)    
-    return res.status(200).send({
+    return res.send({
         succes:true,
         message: "Comentario modificado",
         comment
     })
 } 
     catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })
@@ -72,16 +78,16 @@ CommentsRouter.delete("/deleteComment/:id", auth, authAdmin, async (req,res) =>{
     }
 })
 
-CommentsRouter.get("/getComment/:id",auth, authAdmin, async (req, res)=>{
+CommentsRouter.get("/getComment/:id", async (req, res)=>{
     const {id} = req.params
     try {
         let comment = await Comments.findById(id).populate({path: `user`, select: `name`},)
-        return res.status(200).send({
+        return res.send({
             succes: true,
             comment
         })
     } catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })

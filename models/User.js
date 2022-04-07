@@ -18,9 +18,10 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    list: {
-        type: Array
-      },
+    list : [{
+        type: mongoose.Types.ObjectId,
+        ref: "Movie"
+    }],
 },{timestamps:true}
 )
 

@@ -8,6 +8,7 @@ import { FormControl } from "react-bootstrap";
 import { DropdownButton } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import logo from "..//imagenes/logo.png"
 
 
 function Navigation() {
@@ -16,22 +17,22 @@ function Navigation() {
 
 const navbarUser = () => {
   return (
-    <Navbar bg="light" expand="lg" className="Navbar">
+    <Navbar expand="lg" className="Navbar">
   <Container className="links">
       <div>
-        <Navbar.Brand href="/home">Logo</Navbar.Brand>
+        <Navbar.Brand href="/"><img src={logo} className="logo"/></Navbar.Brand>
       </div>
       <div>
-        <Nav.Link href="/Movies">Peliculas</Nav.Link>
+        <Nav.Link href="/Movies"><p className="text">Peliculas</p></Nav.Link>
       </div>
       <div>
-        <Nav.Link href="/Actors">Actores</Nav.Link>
+        <Nav.Link href="/Actors"><p className="text">Actores</p></Nav.Link>
       </div>
       <div>
-        <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end" className="drop">
+        <DropdownButton align="end" title="Usuario" id="dropdown-menu-align-end" className="drop">
         <Link to = "/login" className="reg">Login</Link>
         <Link to = "/register" className="reg">Registrarse</Link>
-        <Link to = "/" className="reg">Perfil</Link>
+        <Link to = "/user" className="reg">Perfil</Link>
         <Link to = "/addMovie" className="reg">Añadir película</Link>
         <Link to = "/addActor" className="reg">Añadir actor</Link>
         <Dropdown.Divider />
@@ -47,7 +48,7 @@ const navbarUser = () => {
           className="me-2"
           aria-label="Search"
         />
-        <Button variant="outline-success">Search</Button>
+        <Button variant="outline-success" className="text">Search</Button>
       </Form>
   </div>
 </Navbar>
@@ -56,18 +57,25 @@ const navbarUser = () => {
 
 const navbarAdmin = () => {
   return (
-    <Navbar bg="light" expand="lg" className="Navbar">
-  <Container>
-        <Navbar.Brand href="/home">Logo</Navbar.Brand>
-        <Nav.Link href="/Movies">Peliculas</Nav.Link>
-        <Nav.Link href="/Actors">Actores</Nav.Link>
-        <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end">
-        <Link to = "/register" className="reg">Comentario</Link>
-        <Link to = "/modMovie" className="reg">Película</Link>
-        <Link to = "/modActor" className="reg">Actor</Link>
+    <Navbar expand="lg" className="Navbar">
+  <Container className="links">
+      <div>
+        <Navbar.Brand href="/"><img src={logo} className="logo"/></Navbar.Brand>
+      </div>
+      <div>
+        <Nav.Link href="/Movies"><p className="text">Peliculas</p></Nav.Link>
+      </div>
+      <div>
+        <Nav.Link href="/Actors"><p className="text">Actores</p></Nav.Link>
+      </div>
+      <div>
+        <DropdownButton align="end" title="Admin" id="dropdown-menu-align-end" className="drop">
+        <Link to = "/addMovie" className="reg">Añadir película</Link>
+        <Link to = "/addActor" className="reg">Añadir actor</Link>
         <Dropdown.Divider />
         <Link to = "/logout" className="reg">Logout</Link>
         </DropdownButton>
+        </div>
   </Container>
   <div >
    <Form className="d-flex">
@@ -86,17 +94,25 @@ const navbarAdmin = () => {
 
 const navbarLogin = () => {
   return (
-    <Navbar bg="light" expand="lg" className="Navbar">
-  <Container>
-        <Navbar.Brand href="/home">Logo</Navbar.Brand>
-        <Nav.Link href="/Movies">Peliculas</Nav.Link>
-        <Nav.Link href="/Actors">Actores</Nav.Link>
+    <Navbar expand="lg" className="Navbar">
+    <Container className="links">
+        <div>
+          <Navbar.Brand href="/"><img src={logo} className="logo"/></Navbar.Brand>
+        </div>
+        <div>
+          <Nav.Link href="/Movies"><p className="text">Peliculas</p></Nav.Link>
+        </div>
+        <div>
+          <Nav.Link href="/Actors"><p className="text">Actores</p></Nav.Link>
+        </div>
+        <div>
         <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end">
         <Link to = "/login" className="reg">Login</Link>
         <Link to = "/register" className="reg">Registrarse</Link>
         <Dropdown.Divider />
         <Link to = "/logout" className="reg">Logout</Link>
         </DropdownButton>
+        </div>
   </Container>
   <div >
    <Form className="d-flex">
@@ -113,7 +129,7 @@ const navbarLogin = () => {
   )
 }
 if (!role) return navbarLogin()
-    return (
+     else return (
       <div>
         {
           role == 0  ? navbarUser() : navbarAdmin()
@@ -123,5 +139,6 @@ if (!role) return navbarLogin()
       </div>
      
     )
+  
 }
 export default Navigation;

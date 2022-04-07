@@ -24,6 +24,12 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
             message: "Primero logueate"
         })
     }
+    if(!name || !born || !bio || !image){
+        return res.send({
+            succes: false,
+            message: "Rellena todos los campos"
+        })
+    }
 
     let newActor = await actor.save();
   
@@ -40,6 +46,7 @@ ActorsRouter.post("/newActor", auth, async (req, res) =>{
     await actor.save()
     return res.status(200).send({
         succes: true,
+        message:"Actor añadido a la base de datos",
         actor
     })
 }

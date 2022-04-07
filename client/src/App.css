@@ -8,6 +8,16 @@
 .images1 {
   height: 350px;
   width: 280px;
+  border: solid 1px black;
+}
+
+/* Body */
+.body {
+  background-color: rgb(51, 61, 61);
+}
+.text {
+  color: white;
+  text-decoration: none;
 }
 
 /* Register */
@@ -44,17 +54,26 @@
 .Navbar {
   display: flex;
   flex-direction: column;
+  background-color: rgb(51, 61, 61);
 }
 .reg {
   display: flex;
   justify-content: center;
   text-decoration: none;
 }
+.drop {
+  background-color: rgb(51, 61, 61); ;
+}
+.logo {
+  height: 90px;
+  width: 180px;
+}
 
 /* Footer */
 .footer {
   display: flex;
   flex-direction: column;
+  background-color: rgb(51, 61, 61);
 }
 .logosFooter{
   border-radius: 10px;
@@ -73,9 +92,8 @@
   font-size: 22px;
   margin:15px;
   font-weight: bold;
-  color: black;
 }
-/* AddMovie */
+/* AddMovie,AddActor*/
 .adds {
   display: flex;
   justify-content: space-around;
@@ -86,6 +104,11 @@
   justify-content: center;
   margin: 20px;
 }
+.headline {
+  text-align: center;
+  color: white;
+}
+
 /* Movies */
 .titles {
   width: 120px;
@@ -97,23 +120,22 @@
   display: flex;
   flex-wrap: wrap;
   display:inline-block;
-  margin: 25px;
+  margin: 22px;
+  border: black solid 2px;
+  border-radius: 5px;
+  background-color:rgb(51, 51, 54);
 }
 .nombres {
   text-align: center;
   width: 120px;
+  color: white;
 }
-.cardBody {
-  height: min-content;
-}
-.card {
-  display: inline-block;
-}
+
 /* Movie */
 .header {
   display: flex;
-  justify-content: space-between;
-  margin: 20px;
+  justify-content: space-evenly;
+  margin: 15px;
 }
 .poster {
   display: flex;
@@ -130,6 +152,48 @@
 .reparto {
   text-align: center;
 }
+.lista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.deco {
+  text-decoration: none;
+}
+.score {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.stars {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+.points {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+  margin: 15px;
+}
+.estrella {
+  height: 30px;
+  width: 30px;
+  margin: 15px;
+}
+.buttonScore {
+  background-color:  rgb(240, 228, 70);
+  border-radius: 5px;
+  border: 1px solid black;
+  color:black;
+  height: min-content;
+  margin-top: 15px;
+  margin: 15px;
+}
+.messages {
+  display: flex;
+}
+
 /* Actor */
 .actors {
   display: flex;
@@ -141,10 +205,28 @@
   display: flex;
   flex-wrap: wrap;
   display:inline-block;
-  margin: 15px;
+  margin: 10px;
 }
 .filmografia {
   text-align: center;
+}
+.buttonDel {
+  background-color: red;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 80px;
+  color:white;
+}
+.buttonMod {
+  background-color:  rgb(2, 117, 216);
+  border-radius: 5px;
+  border: 1px solid black;
+  color:white;
+}
+.mods {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px;
 }
 
 /* Logout */
@@ -163,6 +245,27 @@
 .addComment {
   display: flex;
   justify-content: center;
+}
+.textArea {
+  width: 700px;
+}
+.buttonCom {
+  background-color:  rgb(240, 228, 70);
+  border-radius: 5px;
+  border: 1px solid black;
+  color:black;
+}
+.adds {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Puntuar */
+.puntuar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* MEDIA QUERY */
@@ -183,5 +286,29 @@
     margin: 30px;
     text-align: center;
   }
+  .logo {
+    height: 130px;
+    width: 330px;
+  }
+  .textArea {
+    width: 300px;
+  }
+  .score {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5px;
+  }
+  .points {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+    margin: 2px;
+  }
+
 }
 

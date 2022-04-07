@@ -29,6 +29,7 @@ MovieRouter.post("/newMovie", auth, async (req, res) =>{
     await movie.save()
     return res.send({
         succes: true,
+        message: "Película creada correctamente",
         movie
     })
 }
@@ -44,7 +45,8 @@ MovieRouter.put("/modifyMovie/:id", auth, authAdmin, async (req,res) =>{
     const {id} = req.params
     const {title, year, argument, cast, genre, image} = req.body            
     try {
-    await Movie.findByIdAndUpdate(id, {title, year, argument, cast, genre, image})    
+    await Movie.findByIdAndUpdate(id, {title, year, argument, cast, genre, image}) 
+    console.log(id)   
     return res.send({
         succes:true,
         message: "Película modificada"
@@ -79,7 +81,7 @@ MovieRouter.get("/getMovie/:id", async (req, res)=>{
     const {id} = req.params
     try {
         let movie = await Movie.findById(id).
-        populate({ path: 'comment', select: 'comment' }).
+        populate({ path: 'comment', select: ' comment name' }).
         populate({ path: 'score', select: 'score' }).
         populate({ path: 'cast', select: 'name image' }).
         populate({ path: 'characters', select: 'name' })

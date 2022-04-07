@@ -15,7 +15,7 @@ const auth = (req, res, next) =>{
         jwt.verify(token, process.env.ACCES_TOKEN_SECRET, (err, user) =>{
             if(err) return res.status(400).send({
                 succes: false,
-                message: "Credenciales erroneas(2)"
+                message: "Credenciales erroneas"
             })
         
         req.user = user

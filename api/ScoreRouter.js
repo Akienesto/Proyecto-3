@@ -17,7 +17,7 @@ ScoreRouter.post("/newScore/:movieId", auth, async (req, res) =>{
     })
 
     // db.score.aggregate( [{ $group: {_id: "$score",avgScores: { $avg: "$score" } } }] )
-
+  
     let newScore = await scores.save();
   
     await Movie.findByIdAndUpdate(movieId, {
@@ -26,13 +26,13 @@ ScoreRouter.post("/newScore/:movieId", auth, async (req, res) =>{
     
 
     await scores.save()
-    return res.status(200).send({
+    return res.send({
         succes: true,
         newScore
     })
 }
     catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })

@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import React from "react";
 import Login from "./components/Login";
+import User from "./components/User";
 import Navigation from "./components/Navigation";
 import Register from "./components/Register";
 import Footer from "./components/Footer";
@@ -16,6 +17,8 @@ import Actor from "./components/Actor";
 import Logout from "./components/Logout";
 import AddComment from "./components/AddComment";
 import Comments from "./components/Comments";
+import ModComment from "./components/ModComment";
+import Score from "./components/Score";
 
 const App = () => {
   return (
@@ -25,18 +28,22 @@ const App = () => {
 
              <Route path="/register" element={<Register />} />
              <Route path="/login" element={<Login />} />
+             <Route path="/user" element={<User />} />
              <Route path="/logout" element={<Logout />} />
-             <Route path="/home" element={<Home />} />
+             <Route path="/" element={<Movies />} />
              <Route path="/movies" element={<Movies />} />
              <Route path="/addMovie" element={<AddMovie />} />
-             <Route path="/modMovie" element={<ModMovie />} />
+             <Route path="/modMovie/:movieId" element={<ModMovie />} />
              <Route path="/movies/:movieId" element={<Movie />} />
              <Route path="/actors/:actorId" element={<Actor />} />
              <Route path="/actors" element={<Actors />} />
              <Route path="/addActor" element={<AddActor />} />
-             <Route path="/modActor" element={<ModActor />} />
+             <Route path="/modActor/:actorId" element={<ModActor />} />
              <Route path="/addComment/:movieId" element={<AddComment />} />
-             <Route path="/comments" element={<Comments />} />
+             <Route path="/getComment/:commentId" element={<Comments />} />
+             <Route path="/modComment/:commentId" element={<ModComment />} />
+             <Route path="/newScore/:movieId" element={<Score />} />
+         
 
             </Routes>
            <Footer />

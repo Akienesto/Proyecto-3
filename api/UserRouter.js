@@ -3,7 +3,8 @@ const User = require("../models/User");
 const UserRouter = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
-const auth = require("../middleware/auth")
+const auth = require("../middleware/auth");
+const Movie = require("../models/Movie")
 
 
 UserRouter.post("/newUser", async (req, res) =>{
@@ -37,14 +38,14 @@ UserRouter.post("/newUser", async (req, res) =>{
     }
 
     await usuario.save()
-    return res.status(200).send({
+    return res.send({
         succes: true,
         message:"Usuario creado correctamente",
         usuario
     })
 }
     catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })
@@ -87,18 +88,19 @@ UserRouter.delete("/deleteUser", auth, async (req,res) =>{
     }
 })
 
-UserRouter.get("/findUser/:id", auth, async (req, res) =>{
-    const {id} = req.params
+UserRouter.get("/getUser", auth, async (req, res) =>{
+    const {id} = req.user
     try {
-        let user = await User.findById(id)
+        let user = await User.findById(id).
+        populate({ path: 'list', select: 'title image' })
         if (!user) {
-        return res.status(400).send({
+        return res.send({
                 succes: false,
                 message: "Usuario no encontrado"
             })
         }
 
-        return res.status(200).send({
+        return res.send({
             succes: true,
             message: "Usuario encontrado",
             user
@@ -143,12 +145,11 @@ UserRouter.post("/login", async (req, res) =>{
         })
     }
     const token = accesToken({id:user._id})
-    const role = user.role
     return res.status(200).send({
         succes: true,
         message: "Usuario logueado correctamente",
         token,
-        role
+        user
     })
     
 }
@@ -160,33 +161,108 @@ UserRouter.post("/login", async (req, res) =>{
     }
 })
 
-  UserRouter.post("/list", auth, async (req, res) => {
-    const { movieId, action } = req.body;
-    const {id} = req.user
+//   UserRouter.post("/list/:movieId", auth, async (req, res) => {
+//     const { movieId } = req.params;
+//     const { action } = req.body;
+//     const {id} = req.user
+//     try {
+//       switch (action) {
+//         case "añadir":
+//           await User.findByIdAndUpdate(id, { $push: { list: movieId } });
+//           break;
+  
+//         case "quitar":
+//           await User.findByIdAndUpdate(id, { $pull: { list: movieId} });
+//           break;
+  
+//         default:
+//           break;
+//       }
+  
+//       return res.send({
+//         success: true,
+//       })
+//     } catch (error) {
+//         return res.send({
+//             succes: false,
+//             message: error.message
+//         })
+//     }
+//   })
+
+// UserRouter.post("/list/:movieId", auth, async (req, res) => {
+//     try {
+//         const {id} = req.user
+//         const {movieId} = req.params
+//         const user = await User.findById(id)
+//         let favorit = false
+//         const peli = await Movie.findById(movieId)
+//         user.list.forEach(e => {
+//             if (e._id == peli){
+//                 favorit = true
+//             }
+//         });
+//         if (favorit == false){
+//             await User.findByIdAndUpdate(id,{
+//                 $push : {list : peli}
+//             })
+//         }else {
+//             await User.findByIdAndUpdate(id,{
+//                 $pull : {list : peli}
+//             })
+//         }
+//         let peliculas = user.list
+//         res.status(200).send({
+//             succes : true,
+//             peliculas
+//         })
+        
+//     } catch (error) {
+//         res.status(500).send({
+//             succes : false,
+//             message : error.message
+//         })
+//     }
+
+// })
+
+UserRouter.post("/list/:movieId", auth, async (req, res) => {
     try {
-      switch (action) {
-        case "add":
-          await User.findByIdAndUpdate(id, { $push: { list: movieId } });
-          break;
-  
-        case "drop":
-          await User.findByIdAndUpdate(id, { $pull: { list: movieId} });
-          break;
-  
-        default:
-          break;
-      }
-  
-      return res.status(200).send({
-        success: true,
-      })
+        const { movieId } = req.params;
+        const  id  = req.user.id;
+        console.log(id)
+        // let findMovie = await Movie.findById(movieId)
+        let user = await User.findById(id)
+        let encontrarPeli = await user.list.find(pelicula => pelicula._id.equals(movieId))
+        console.log(user)
+        if (encontrarPeli) {
+            await User.findByIdAndUpdate(id,{
+                $pull : {list : movieId}
+            })
+            return res.send({
+                succes : true,
+                message : "Película eliminada de favoritos"
+            })
+        } 
+        if (!encontrarPeli){
+            await User.findByIdAndUpdate(id,{
+                $push : {list : movieId}
+            })
+            return res.send({
+                succes : true,
+                message : "Película añadida a favoritos"
+            })
+        }
+        
     } catch (error) {
         return res.status(500).send({
-            succes: false,
-            message: error.message
+            succes : false,
+            message : error.message
         })
     }
-  })
+ 
+})
+
 
 const accesToken =(user) =>{
     return jwt.sign(user, process.env.ACCES_TOKEN_SECRET,{expiresIn:"7d"})
