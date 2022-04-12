@@ -12,7 +12,7 @@ const User = () => {
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await axios.get(`http://localhost:5000/api/getUser`,{
+            const response = await axios.get(`/api/getUser`,{
                 headers:{
                     "Authorization": token
                   }

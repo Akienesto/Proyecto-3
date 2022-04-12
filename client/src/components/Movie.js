@@ -19,7 +19,7 @@ const Movie = () => {
 
     useEffect(() => {
         const getMovie = async () => {
-            const response = await axios.get(`http://localhost:5000/api/getMovie/${movieId}`,)
+            const response = await axios.get(`/api/getMovie/${movieId}`,)
 
             console.log(response)
             setMovie(response.data.movie)
@@ -34,7 +34,7 @@ const Movie = () => {
 
     const deleteMovie = async () => {
         try {
-            const borrar = await axios.delete(`http://localhost:5000/api/deleteMovie/${movieId}`, {
+            const borrar = await axios.delete(`/api/deleteMovie/${movieId}`, {
                 headers:
                 {
                     "Authorization": token
@@ -51,7 +51,7 @@ const Movie = () => {
 
     const addList = async () => {
         try {
-            const res2 = await axios.post(`http://localhost:5000/api/list/${movieId}`, { ...movieId }, {
+            const res2 = await axios.post(`/api/list/${movieId}`, { ...movieId }, {
                 headers: {
                     "Authorization": token
                 }
@@ -62,6 +62,38 @@ const Movie = () => {
         }
 
     }
+
+    // function ArrayAvg(myArray) {
+    //     let i = 0, summ = 0, ArrayLen = myArray.length;
+    //     while (i < ArrayLen) {
+    //         summ = summ + myArray[i++];
+    // }
+    //     return summ / ArrayLen;
+    // }
+    // let myArray = [score.score];
+    // let media = ArrayAvg(myArray);
+    // console.log(media)
+
+    let sumatoriaObjeto = score.reduce(function(acumulador, siguienteValor){
+        return {
+          points: acumulador.score + siguienteValor.score
+        };
+      }, {points: 0});
+      
+      let promedioEdad = sumatoriaObjeto.score / score.length;
+      console.log(promedioEdad)
+
+    // function mediaCalc(list){
+    //     const sumList = list.reduce(function(valuesAc = 0, newElement){
+    //         return valuesAc + newElement;
+    //     });
+
+    //     const media = sumList / list.length;
+
+    //     return media;
+    // }
+
+    // console.log(mediaCalc([score]))
 
     if (role == 1) return (
         <div>

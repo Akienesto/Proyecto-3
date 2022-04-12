@@ -28,7 +28,7 @@ const AddMovie = () => {
     const movieSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:5000/api/newMovie", {...movie},{
+            const response = await axios.post("/api/newMovie", {...movie},{
               headers:{
                 "Authorization": token
               }

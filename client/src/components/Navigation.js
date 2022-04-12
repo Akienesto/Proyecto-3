@@ -29,12 +29,16 @@ const navbarUser = () => {
         <Nav.Link href="/Actors"><p className="text">Actores</p></Nav.Link>
       </div>
       <div>
+        <Nav.Link href="/characters"><p className="text">Personajes</p></Nav.Link>
+      </div>
+      <div>
         <DropdownButton align="end" title="Usuario" id="dropdown-menu-align-end" className="drop">
         <Link to = "/login" className="reg">Login</Link>
         <Link to = "/register" className="reg">Registrarse</Link>
         <Link to = "/user" className="reg">Perfil</Link>
         <Link to = "/addMovie" className="reg">Añadir película</Link>
         <Link to = "/addActor" className="reg">Añadir actor</Link>
+        <Link to = "/addCharacter" className="reg">Añadir personaje</Link>
         <Dropdown.Divider />
         <Link to = "/logout" className="reg">Logout</Link>
         </DropdownButton>
@@ -69,9 +73,13 @@ const navbarAdmin = () => {
         <Nav.Link href="/Actors"><p className="text">Actores</p></Nav.Link>
       </div>
       <div>
+        <Nav.Link href="/characters"><p className="text">Personajes</p></Nav.Link>
+      </div>
+      <div>
         <DropdownButton align="end" title="Admin" id="dropdown-menu-align-end" className="drop">
         <Link to = "/addMovie" className="reg">Añadir película</Link>
         <Link to = "/addActor" className="reg">Añadir actor</Link>
+        <Link to = "/addCharacter" className="reg">Añadir personaje</Link>
         <Dropdown.Divider />
         <Link to = "/logout" className="reg">Logout</Link>
         </DropdownButton>
@@ -105,6 +113,9 @@ const navbarLogin = () => {
         <div>
           <Nav.Link href="/Actors"><p className="text">Actores</p></Nav.Link>
         </div>
+        <div>
+        <Nav.Link href="/characters"><p className="text">Personajes</p></Nav.Link>
+      </div>
         <div>
         <DropdownButton align="end" title="Iniciar sesión" id="dropdown-menu-align-end">
         <Link to = "/login" className="reg">Login</Link>

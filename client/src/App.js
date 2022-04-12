@@ -19,6 +19,10 @@ import AddComment from "./components/AddComment";
 import Comments from "./components/Comments";
 import ModComment from "./components/ModComment";
 import Score from "./components/Score";
+import Character from "./components/Character";
+import Characters from "./components/Characters";
+import AddCharacter from "./components/AddCharacter";
+import ModCharacter from "./components/ModCharacter";
 
 const App = () => {
   return (
@@ -43,6 +47,10 @@ const App = () => {
              <Route path="/getComment/:commentId" element={<Comments />} />
              <Route path="/modComment/:commentId" element={<ModComment />} />
              <Route path="/newScore/:movieId" element={<Score />} />
+             <Route path="/characters" element={<Characters />} />
+             <Route path="/characters/:characterId" element={<Character />} />
+             <Route path="/addCharacter" element={<AddCharacter />} />
+             {/* <Route path="/modCharacter/:characterId" element={<ModCharacter />} /> */}
          
 
             </Routes>

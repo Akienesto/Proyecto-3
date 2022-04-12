@@ -73,9 +73,10 @@ CharacterRouter.put("/modifyCharacter/:id", auth, authAdmin, async (req,res) =>{
 CharacterRouter.get("/getCharacter/:id", async (req, res)=>{
     const {id} = req.params
         try {
-        let character = await Character.findById(id)
-        // populate({ path: 'character', select: 'name' })
-        return res.status(200).send({
+        let character = await Character.findById(id).
+        populate({ path: 'films', select: 'title image' }).
+        populate({ path: 'actors', select: 'name image' })
+        return res.send({
             succes: true,
             character,
           
@@ -92,7 +93,7 @@ CharacterRouter.get("/getCharacter/:id", async (req, res)=>{
 
 CharacterRouter.get("/allCharacters", async (req, res)=>{
     let allCharacters = await Character.find({})
-    return res.status(200).send({
+    return res.send({
         succes:true,
         allCharacters
     })

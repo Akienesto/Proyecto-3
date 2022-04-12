@@ -15,7 +15,7 @@ const CharacterSchema = new mongoose.Schema({
         ref: "Movie"
         },],
     year: {
-        type: Number,
+        type: String,
     },
     bio: {
         type: String,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -17,11 +17,10 @@ const ModComment = () => {
     const { name, value } = event.target
     setComment({ ...comment, [name]: value })
   }
-
   const commentSubmit = async e => {
     e.preventDefault()
     try {
-      const response = await axios.put(`http://localhost:5000/api/modifyComment/${commentId}`, { ...comment }, {
+      const response = await axios.put(`/api/modifyComment/${commentId}`, { ...comment }, {
         headers: {
           "Authorization": token
         }
@@ -31,6 +30,7 @@ const ModComment = () => {
       // setTimeout(()=>{
       //   navigate("/${commentId}")
       // },3000)
+      setComment(response.data.comment)
     } catch (error) {
       setErrorMessage(error.response.data.message)
     }
@@ -40,7 +40,7 @@ const ModComment = () => {
     <Form onSubmit={commentSubmit} >
       <div className="adds">
         <div>
-          <textarea type="text" className="textArea" rows="6" name="comment" value={comment.comment} onChange={onChangeInput}></textarea>
+          <textarea type="text" className="textArea" rows="6" name="comment" value={comment.comment} onChange={onChangeInput}>{comment.comment}</textarea>
         </div>
         <div className="submit">
           <Button variant="primary" type="submit">

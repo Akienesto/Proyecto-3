@@ -13,6 +13,7 @@ const ActorsRouter = require("./api/ActorsRouter")
 const ImageRouter = require("./api/ImageRouter")
 const CharacterRouter = require("./api/CharacterRouter")
 const cors = require("cors")
+const path = require("path")
 
 
 app.use(express.json({extended:true}))
@@ -36,6 +37,13 @@ mongoose.connect(URL, {
 }).catch(error =>{
     console.log(error)
 })
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 
 

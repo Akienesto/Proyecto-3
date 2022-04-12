@@ -29,7 +29,7 @@ const ModMovie = () => {
     const movieSubmit = async event => {
         event.preventDefault()
         try {
-            const response = await axios.put(`http://localhost:5000/api/modifyMovie/${movieId}`, {...movie},{
+            const response = await axios.put(`/api/modifyMovie/${movieId}`, {...movie},{
               headers:{
                 "Authorization": token
               }

@@ -2,36 +2,36 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Actors = () => {
-    const [actors, setActors] = useState([])
+const Characters = () => {
+    const [characters, setCharacters] = useState([])
     const token = localStorage.getItem("token")
 
     useEffect(() => {
-        const getActors = async () => {
-            const response = await axios.get("/api/allActors",{
+        const getCharacters = async () => {
+            const response = await axios.get("/api/allCharacters",{
                 headers :{
                     "Authorization" : token
                 }
             })
             console.log(response)
-            setActors(response.data.allActors)
+            setCharacters(response.data.allCharacters)
         }
-        getActors()
+        getCharacters()
     },[])
 
 
     return(
         <div>
         {
-            actors.map(Actor =>{
+            characters.map(personaje =>{
                 return(
-                    <Link key={Actor._id} to={`/actors/${Actor._id}`}>
+                    <Link key={personaje._id} to={`/characters/${personaje._id}`}>
                     <div className="wrap">
                         <div className="divs">
-                          <img src={Actor.image} className="images"/>
+                          <img src={personaje.image} className="images"/>
                         </div>
                         <div>
-                          <h6 className="nombres">{Actor.name}</h6>
+                          <h6 className="nombres">{personaje.name}</h6>
                         </div>
                     </div>
                     </Link>
@@ -42,4 +42,4 @@ const Actors = () => {
     )
 }
 
-export default Actors
+export default Characters

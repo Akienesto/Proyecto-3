@@ -15,7 +15,7 @@ const Comment = () => {
 
     useEffect(() => {
         const getcomment = async()=>{
-            const response = await axios.get(`http://localhost:5000/api/getComment/${commentId}`)
+            const response = await axios.get(`/api/getComment/${commentId}`)
         
             console.log(response)
             setComment(response.data.comment)
@@ -27,7 +27,7 @@ const Comment = () => {
 
 const deleteComment = async () => {
     try {
-        const borrar = await axios.delete(`http://localhost:5000/api/deleteComment/${commentId}`, {
+        const borrar = await axios.delete(`/api/deleteComment/${commentId}`, {
             headers:
             {
                 "Authorization": token

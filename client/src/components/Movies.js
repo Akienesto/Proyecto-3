@@ -9,7 +9,7 @@ const Movies = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const response = await axios.get("http://localhost:5000/api/allMovies",{
+            const response = await axios.get("/api/allMovies",{
                 headers :{
                     "Authorization" : token
                 }

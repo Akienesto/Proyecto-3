@@ -112,6 +112,9 @@
 /* Movies */
 .titles {
   width: 120px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .divs {
   display: inline;
@@ -126,9 +129,12 @@
   background-color:rgb(51, 51, 54);
 }
 .nombres {
-  text-align: center;
   width: 120px;
   color: white;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
 }
 
 /* Movie */

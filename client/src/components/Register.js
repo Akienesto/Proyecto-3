@@ -23,7 +23,7 @@ const Register = () => {
     const registerSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:5000/api/newUser", {...user})
+            const response = await axios.post("/api/newUser", {...user})
             console.log(response)
             setSuccesMessage(response.data.message)
             setTimeout(()=>{

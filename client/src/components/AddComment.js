@@ -21,7 +21,7 @@ const AddComment = () => {
     const commentSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post(`http://localhost:5000/api/newComment/${movieId}`, {...comment},{
+            const response = await axios.post(`/api/newComment/${movieId}`, {...comment},{
             headers:{
               "Authorization": token
             }

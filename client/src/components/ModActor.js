@@ -27,7 +27,7 @@ const ModActor = () => {
     const actorSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.put(`http://localhost:5000/api/modifyActor/${actorId}`,{...actor},{
+            const response = await axios.put(`/api/modifyActor/${actorId}`,{...actor},{
               headers:{
                 "Authorization": token
               }
@@ -53,7 +53,7 @@ const ModActor = () => {
         
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label className="text">Fecha de nacimiento</Form.Label>
-            <Form.Control type="text" name="born" value={actor.born} placeholder="" onChange={onChangeInput} />
+            <Form.Control type="date" name="born" value={actor.born} placeholder="" onChange={onChangeInput} />
           </Form.Group>
         
           <Form.Group className="mb-3" controlId="formBasicPassword">

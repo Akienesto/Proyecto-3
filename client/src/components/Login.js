@@ -22,7 +22,7 @@ const Login = () => {
     const loginSubmit = async e => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:5000/api/login", {...user})
+            const response = await axios.post("/api/login", {...user})
             console.log(response)
             setSuccesMessage(response.data.message)
             localStorage.setItem("token", response.data.token)
