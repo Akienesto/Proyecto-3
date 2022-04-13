@@ -50,7 +50,7 @@ const App = () => {
              <Route path="/characters" element={<Characters />} />
              <Route path="/characters/:characterId" element={<Character />} />
              <Route path="/addCharacter" element={<AddCharacter />} />
-             {/* <Route path="/modCharacter/:characterId" element={<ModCharacter />} /> */}
+             <Route path="/modCharacter/:characterId" element={<ModCharacter />} />
          
 
             </Routes>

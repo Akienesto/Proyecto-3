@@ -8,7 +8,7 @@ const CharacterSchema = new mongoose.Schema({
     },
     actors: [{
         type: mongoose.Types.ObjectId,
-        ref: "Actor"
+        ref: "Actors"
         },],
     films: [{
         type: mongoose.Types.ObjectId,
@@ -20,7 +20,7 @@ const CharacterSchema = new mongoose.Schema({
     bio: {
         type: String,
     },
-    images:{
+    image:{
         type: String,
     }
 }, {

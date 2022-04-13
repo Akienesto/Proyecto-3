@@ -6,10 +6,10 @@ const ScoreSchema = new mongoose.Schema({
         type: Number,
         // required: true
     },
-    user:{
-        type: mongoose.Types.ObjectId,
-        ref: "User"
-    },
+    // user:{
+    //     type: mongoose.Types.ObjectId,
+    //     ref: "User"
+    // },
     movie:{
         type: mongoose.Types.ObjectId,
         ref: "Movie"

@@ -21,7 +21,7 @@ const Character = () => {
             console.log(response)
             setCharacter(response.data.character)
             setFilms(response.data.character.films)
-            setActores(response.data.actors)
+            setActores(response.data.character.actors)
         }
         getCharacter()
 
@@ -49,15 +49,16 @@ const Character = () => {
             <div className="actors">
                 <h2 className="text">{prota.name}</h2>
                 <img src={prota.image} className="images1" />
-                <p className="text">{prota.bio}</p>
                 <p className="text">Fecha de creación : {prota.year}</p>
+                <h2 className="filmografia text">Biografía</h2>
+                <p className="text">{prota.bio}</p>
                 <h2 className="filmografia text">Filmografía</h2>
-                <div className="wrapActors">
+                <div className="wrapFilms">
                     {
                         films.map(pelis => {
                             return (
                                 <Link key={pelis._id} to={`/movies/${pelis._id}`}>
-                                    <div className="wrap">
+                                    <div className="wrapOne">
                                         <div className="divs">
                                             <img src={pelis.image} className="images" />
                                             <h6 className="nombres">{pelis.title}</h6>
@@ -68,6 +69,21 @@ const Character = () => {
                         })
                     }
                 </div>
+            </div>
+            <div>
+                <h2 className="filmografia text">Actores</h2>
+                {
+                    actores.map(protas => {
+                        return (
+                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                                <div className="wrap">
+                                    <img src={protas.image} className="images" />
+                                    <h6 className="nombres">{protas.name}</h6>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
             </div>
             <div className="mods">
                 <button onClick={deleteCharacter} className="buttonDel">Borrar</button>
@@ -85,10 +101,10 @@ const Character = () => {
     else return (
         <div>
             <div className="actors">
-            <h2 className="text">{prota.name}</h2>
-            <img src={prota.image} className="images1" />
-            <p className="text">{prota.bio}</p>
-            <p className="text">Fecha de creación : {prota.year}</p>
+                <h2 className="text">{prota.name}</h2>
+                <img src={prota.image} className="images1" />
+                <p className="text">{prota.bio}</p>
+                <p className="text">Fecha de creación : {prota.year}</p>
             </div>
             <div>
                 <h2 className="filmografia text">Filmografía</h2>
@@ -96,10 +112,10 @@ const Character = () => {
                     films.map(pelis => {
                         return (
                             <Link key={pelis._id} to={`/movies/${pelis._id}`}>
-                                    <div className="wrap">
-                                        <img src={pelis.image} className="images" />
-                                        <h6 className="nombres">{pelis.title}</h6>
-                                    </div>
+                                <div className="wrap">
+                                    <img src={pelis.image} className="images" />
+                                    <h6 className="nombres">{pelis.title}</h6>
+                                </div>
                             </Link>
                         )
                     })
@@ -111,10 +127,10 @@ const Character = () => {
                     actores.map(protas => {
                         return (
                             <Link key={protas._id} to={`/actors/${protas._id}`}>
-                                    <div className="wrap">
-                                        <img src={protas.image} className="images" />
-                                        <h6 className="nombres">{protas.name}</h6>
-                                    </div>
+                                <div className="wrap">
+                                    <img src={protas.image} className="images" />
+                                    <h6 className="nombres">{protas.name}</h6>
+                                </div>
                             </Link>
                         )
                     })

@@ -63,25 +63,25 @@ const Movie = () => {
 
     }
 
-    // function ArrayAvg(myArray) {
-    //     let i = 0, summ = 0, ArrayLen = myArray.length;
-    //     while (i < ArrayLen) {
-    //         summ = summ + myArray[i++];
-    // }
-    //     return summ / ArrayLen;
-    // }
-    // let myArray = [score.score];
-    // let media = ArrayAvg(myArray);
-    // console.log(media)
+    function ArrayAvg(myArray) {
+        let i = 0, summ = 0, ArrayLen = myArray.length;
+        while (i < ArrayLen) {
+            summ = summ + myArray[i++];
+    }
+        return summ / ArrayLen;
+    }
+    let myArray = [score.score];
+    let media = ArrayAvg(myArray);
+    console.log(media)
 
-    let sumatoriaObjeto = score.reduce(function(acumulador, siguienteValor){
-        return {
-          points: acumulador.score + siguienteValor.score
-        };
-      }, {points: 0});
+    // let sumatoriaObjeto = score.reduce(function(acumulador, siguienteValor){
+    //     return {
+    //       points: acumulador.score + siguienteValor.score
+    //     };
+    //   }, {points: 0});
       
-      let promedioEdad = sumatoriaObjeto.score / score.length;
-      console.log(promedioEdad)
+    //   let promedioEdad = sumatoriaObjeto.score / score.length;
+    //   console.log(promedioEdad)
 
     // function mediaCalc(list){
     //     const sumList = list.reduce(function(valuesAc = 0, newElement){
@@ -93,7 +93,7 @@ const Movie = () => {
     //     return media;
     // }
 
-    // console.log(mediaCalc([score]))
+    // console.log(mediaCalc([score.score]))
 
     if (role == 1) return (
         <div>
@@ -112,14 +112,14 @@ const Movie = () => {
                                 <div className="stars">
                                     <img src={estrella} alt="estrella" className="estrella" />
                                     <h5 className="text points">{points.score}/10</h5>
-                                    <Link to={`/newScore/${movie._id}`}>
-                                        <button className="buttonScore">Puntuar</button>
-                                    </Link>
                                 </div>
                             )
                         })
                     }
                 </div>
+                <Link to={`/newScore/${movie._id}`}>
+                                        <button className="buttonScore">Puntuar</button>
+                                    </Link>
             </div>
             <div className="messages">
                         <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>

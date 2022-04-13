@@ -8,7 +8,7 @@ const authAdmin = require("../middleware/authAdmin");
 
 
 CharacterRouter.post("/newCharacter", auth, async (req, res) =>{
-    const {name, actors, films, year, bio, images} = req.body
+    const {name, actors, films, year, bio, image} = req.body
     const user = req.user.id
     try {
         let character = new Character({
@@ -17,7 +17,7 @@ CharacterRouter.post("/newCharacter", auth, async (req, res) =>{
         films,
         year,
         bio,
-        images
+        image
     })
     if(!user){
         return res.send({
@@ -41,6 +41,7 @@ CharacterRouter.post("/newCharacter", auth, async (req, res) =>{
     await character.save()
     return res.status(200).send({
         succes: true,
+        message: "Personaje creado correctamente",
         actors
     })
 }
@@ -78,12 +79,11 @@ CharacterRouter.get("/getCharacter/:id", async (req, res)=>{
         populate({ path: 'actors', select: 'name image' })
         return res.send({
             succes: true,
-            character,
-          
+            character
         })
 
     } catch (error) {
-        return res.status(500).send({
+        return res.send({
             succes: false,
             message: error.message
         })

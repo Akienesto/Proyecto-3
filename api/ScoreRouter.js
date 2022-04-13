@@ -11,9 +11,7 @@ ScoreRouter.post("/newScore/:movieId", auth, async (req, res) =>{
     const id = req.user.id
     try {
     let scores = new Score({
-        score,
-        movie: movieId,
-        id
+        score
     })
 
     // db.score.aggregate( [{ $group: {_id: "$score",avgScores: { $avg: "$score" } } }] )
@@ -21,7 +19,7 @@ ScoreRouter.post("/newScore/:movieId", auth, async (req, res) =>{
     let newScore = await scores.save();
   
     await Movie.findByIdAndUpdate(movieId, {
-      $push: { score: newScore._id }, 
+      $push: { score: newScore.score }, 
     })
     
 
