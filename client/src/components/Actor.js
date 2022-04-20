@@ -43,14 +43,19 @@ const Actor = () => {
     }
 
     if (role == 1) return (
-        <div>
-            <div className="actors">
-                <h2 className="text">{prota.name}</h2>
-                <img src={prota.image} className="images1" />
-                <p className="text">{prota.bio}</p>
+        <div className="actors">
+            <h2 className="text">{prota.name}</h2>
+            <div className="actorBio">
+                <div>
+                    <img src={prota.image} className="images1" />
+                </div>
+                <div className="actorBio1">
+                    <p className="text">{prota.bio}</p>
+                </div>
                 {/* <p>{prota.characters}</p> */}
-                <p className="text">Fecha de nacimiento : {prota.born}</p>
-                {/* <p>{prota.films}</p> */}
+            </div>
+            <div>
+            <p className="text">Fecha de nacimiento : {prota.born}</p>
                 <h2 className="filmografia text">Filmografía</h2>
                 <div className="wrapActors">
                     {
@@ -83,29 +88,41 @@ const Actor = () => {
     )
 
     else return (
-        <div>
-            <div className="actors">
+        <div className="actors">
             <h2 className="text">{prota.name}</h2>
-            <img src={prota.image} className="images1" />
-            <p className="text">{prota.bio}</p>
-            {/* <p>{prota.characters}</p> */}
-            <p className="text">Fecha de nacimiento : {prota.born}</p>
-            {/* <p>{prota.films}</p> */}
+            <div className="actorBio">
+                <div>
+                    <img src={prota.image} className="images1" />
+                </div>
+                <div className="actorBio1">
+                    <p className="text">{prota.bio}</p>
+                </div>
+                {/* <p>{prota.characters}</p> */}
             </div>
             <div>
+            <p className="text">Fecha de nacimiento : {prota.born}</p>
                 <h2 className="filmografia text">Filmografía</h2>
                 {
                     films.map(pelis => {
                         return (
                             <Link key={pelis._id} to={`/movies/${pelis._id}`}>
-                                    <div className="wrap">
-                                        <img src={pelis.image} className="images" />
-                                        <h6 className="nombres">{pelis.title}</h6>
-                                    </div>
+                                <div className="wrap">
+                                    <img src={pelis.image} className="images" />
+                                    <h6 className="nombres">{pelis.title}</h6>
+                                </div>
                             </Link>
                         )
                     })
                 }
+            </div>
+            <div className="mods">
+                <Link key={prota._id} to={`/modActor/${prota._id}`}><button className="buttonMod">Modificar</button></Link>
+            </div>
+            <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                {succesMessage}
+            </div>
+            <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                {errorMessage}
             </div>
         </div>
     )

@@ -10,10 +10,10 @@ const ScoreSchema = new mongoose.Schema({
     //     type: mongoose.Types.ObjectId,
     //     ref: "User"
     // },
-    movie:{
-        type: mongoose.Types.ObjectId,
-        ref: "Movie"
-    }
+    // movie:{
+    //     type: mongoose.Types.ObjectId,
+    //     ref: "Movie"
+    // }
 },{timestamps:true}
 )
 

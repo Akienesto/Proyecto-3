@@ -41,7 +41,7 @@ MovieRouter.post("/newMovie", auth, async (req, res) =>{
     }
 })
 
-MovieRouter.put("/modifyMovie/:id", auth, authAdmin, async (req,res) =>{
+MovieRouter.put("/modifyMovie/:id", auth, async (req,res) =>{
     const {id} = req.params
     const {title, year, argument, cast, genre, image} = req.body            
     try {

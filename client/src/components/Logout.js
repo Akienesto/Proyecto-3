@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("role")
+    // window.location.href=`/logout`
 
     return(
         <div className="logout text">

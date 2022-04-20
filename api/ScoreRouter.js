@@ -19,13 +19,14 @@ ScoreRouter.post("/newScore/:movieId", auth, async (req, res) =>{
     let newScore = await scores.save();
   
     await Movie.findByIdAndUpdate(movieId, {
-      $push: { score: newScore.score }, 
+      $push: { score: newScore }, 
     })
     
 
     await scores.save()
     return res.send({
         succes: true,
+        message: "Gracias por tu puntuación",
         newScore
     })
 }

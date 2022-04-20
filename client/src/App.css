@@ -35,9 +35,6 @@
   text-align: center;
   margin: 15px;
 }
-.mb-3 {
-  width: max-content;
-}
 
 /* Login */
 .login {
@@ -50,6 +47,7 @@
 .d-flex {
   display: flex;
   margin: 10px;
+  width: 420px;
 }
 .Navbar {
   display: flex;
@@ -62,11 +60,22 @@
   text-decoration: none;
 }
 .drop {
-  background-color: rgb(51, 61, 61); ;
+  background-color: rgb(51, 61, 61);
+  margin: 10px;
 }
 .logo {
-  height: 90px;
+  height: 85px;
   width: 180px;
+}
+.lupa {
+  height: 25px;
+  width: 30px;
+}
+.searchBar {
+  display: flex;
+}
+.font {
+  font-size: 25px;
 }
 
 /* Footer */
@@ -96,7 +105,7 @@
 /* AddMovie,AddActor*/
 .adds {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin: 20px;
 }
 .submit {
@@ -123,7 +132,7 @@
   display: flex;
   flex-wrap: wrap;
   display:inline-block;
-  margin: 22px;
+  margin: 21px;
   border: black solid 2px;
   border-radius: 5px;
   background-color:rgb(51, 51, 54);
@@ -195,9 +204,17 @@
   height: min-content;
   margin-top: 15px;
   margin: 15px;
+  padding: 5px;
+  font-weight: bold;
 }
 .messages {
   display: flex;
+}
+.argDiv {
+  max-height: 350px;
+  white-space:pre-wrap;
+  text-overflow: ellipsis;
+  overflow:auto;
 }
 
 /* Actor */
@@ -228,10 +245,20 @@
   border-radius: 5px;
   border: 1px solid black;
   color:white;
+  padding: 5px;
+  font-weight: bold;
 }
 .mods {
   display: flex;
   justify-content: space-evenly;
+  margin: 15px;
+}
+.actorBio {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+.actorBio1 {
   margin: 15px;
 }
 
@@ -244,7 +271,10 @@
 }
 .logoutButton {
   margin: 20px;
+  background-color:  rgb(240, 228, 70);
   border-radius: 5px;
+  border: 1px solid black;
+  color:black;
 }
 
 /* Comments */
@@ -260,11 +290,32 @@
   border-radius: 5px;
   border: 1px solid black;
   color:black;
+  padding: 5px;
+  font-weight: bold;
 }
-.adds {
+/* .adds {
   display: flex;
   flex-direction: column;
   align-items: center;
+} */
+.comentario {
+  font-weight: bold;
+  font-size: 18px;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cardBody{
+  background-color:rgb(51, 51, 54) ;
+  max-height: 90px;
+  white-space:normal;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+.card1 {
+  margin: 10px;
 }
 
 /* Puntuar */
@@ -283,6 +334,19 @@
   border: black solid 2px;
   border-radius: 5px;
   background-color:rgb(51, 51, 54);
+}
+
+/* ModMovie */
+.textArea1 {
+  width: 350px;
+  margin-top: -8px;
+}
+
+/* User */
+.myMovies {
+  border-radius: 5px;
+  border: 2px solid rgb(240, 228, 70);
+  margin: 2px;
 }
 
 /* MEDIA QUERY */
@@ -325,6 +389,31 @@
     align-items: center;
     margin-top: 7px;
     margin: 2px;
+  }
+  .d-flex {
+    display: flex;
+    margin: 10px;
+    width: 180px;
+  }
+  .searchBar {
+    display: flex;
+    flex-direction: row;
+  }
+  .lupa {
+    height: 25px;
+    width: 30px;
+  }
+  .font {
+    font-size: 18px;
+  }
+  .textArea1 {
+    width: 205px;
+  }
+  .actorBio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
   }
 
 }

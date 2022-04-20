@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const ModComment = () => {
   const { commentId } = useParams()
@@ -11,7 +11,18 @@ const ModComment = () => {
   const [succesMessage, setSuccesMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const token = localStorage.getItem("token")
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const getComentario = async () => {
+        const response = await axios.get(`/api/getComment/${commentId}`,)
+
+        console.log(response)
+        setComment(response.data.comment)
+    }
+    getComentario()
+
+}, [])
 
   const onChangeInput = event => {
     const { name, value } = event.target
@@ -27,9 +38,9 @@ const ModComment = () => {
       })
       console.log(response)
       setSuccesMessage(response.data.message)
-      // setTimeout(()=>{
-      //   navigate("/${commentId}")
-      // },3000)
+      setTimeout(()=>{
+        navigate(`/getComment/${commentId}`)
+      },3000)
       setComment(response.data.comment)
     } catch (error) {
       setErrorMessage(error.response.data.message)

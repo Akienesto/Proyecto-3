@@ -3,12 +3,30 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import estrella from "..//imagenes/estrella.png"
+import Card from 'react-bootstrap/Card'
+
+const ReadMore = ({ children }) => {
+    const text = children;
+    const [isReadMore, setIsReadMore] = useState();
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore);
+    };
+    return (
+        <p className="text">
+        {isReadMore ? text.slice(0, 250) : text}
+        <span onClick={toggleReadMore} className="read-or-hide">
+            {isReadMore ? "   ...read more" : "    show less"}
+        </span>
+        </p>
+    );
+    };
 
 const Movie = () => {
     const { movieId } = useParams()
     const [movie, setMovie] = useState([])
     const [cast, setCast] = useState([])
     const [score, setScore] = useState([])
+    const [points, setPoints] = useState([])
     const [comment, setComment] = useState([])
     const [likes, setLikes] = useState([])
     const role = localStorage.getItem("role")
@@ -27,11 +45,12 @@ const Movie = () => {
             setScore(response.data.movie.score)
             setComment(response.data.movie.comment)
             setLikes(response.data.movie.likes)
+            setPoints(response.data.movie.score.score)
         }
         getMovie()
 
     }, [])
-
+    
     const deleteMovie = async () => {
         try {
             const borrar = await axios.delete(`/api/deleteMovie/${movieId}`, {
@@ -67,20 +86,20 @@ const Movie = () => {
         let i = 0, summ = 0, ArrayLen = myArray.length;
         while (i < ArrayLen) {
             summ = summ + myArray[i++];
-    }
+        }
         return summ / ArrayLen;
     }
-    let myArray = [score.score];
+    let myArray = [points];
     let media = ArrayAvg(myArray);
     console.log(media)
 
-    // let sumatoriaObjeto = score.reduce(function(acumulador, siguienteValor){
+    // let sumatoriaObjeto = points.reduce(function(acumulador, siguienteValor){
     //     return {
-    //       points: acumulador.score + siguienteValor.score
+    //       points: acumulador.points + siguienteValor.points
     //     };
     //   }, {points: 0});
-      
-    //   let promedioEdad = sumatoriaObjeto.score / score.length;
+
+    //   let promedioEdad = sumatoriaObjeto.points / points.length;
     //   console.log(promedioEdad)
 
     // function mediaCalc(list){
@@ -93,7 +112,7 @@ const Movie = () => {
     //     return media;
     // }
 
-    // console.log(mediaCalc([score.score]))
+    // console.log(mediaCalc([points]))
 
     if (role == 1) return (
         <div>
@@ -118,17 +137,17 @@ const Movie = () => {
                     }
                 </div>
                 <Link to={`/newScore/${movie._id}`}>
-                                        <button className="buttonScore">Puntuar</button>
-                                    </Link>
+                    <button className="buttonScore">Puntuar</button>
+                </Link>
             </div>
             <div className="messages">
-                        <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
-                            {succesMessage}
-                        </div>
-                        <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
-                            {errorMessage}
-                        </div>
-                    </div>
+                <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                    {succesMessage}
+                </div>
+                <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                    {errorMessage}
+                </div>
+            </div>
             <div className="poster">
                 <div>
                     <img src={movie.image} className="images1" alt="poster" />
@@ -146,7 +165,7 @@ const Movie = () => {
                 {
                     cast.map(protas => {
                         return (
-                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                            <Link to={`/actors/${protas._id}`}>
                                 <div className="wrap">
                                     <img src={protas.image} className="images" />
                                     <h6 className="nombres">{protas.name}</h6>
@@ -158,18 +177,25 @@ const Movie = () => {
             </div>
             <div className="addComment">
                 <Link to={`/addComment/${movie._id}`}>
-                    <button className="buttonCom">Añadir comentario</button>
+                    <button className="buttonCom comentario"> + Añade tu comentario</button>
                 </Link>
+                {/* <AddComment /> */}
             </div>
             <h2 className="argument text">Comentarios</h2>
             <div>
                 {
                     comment.map(comentario => {
                         return (
-                            <div className="wrap">
+                            <div className="cards">
                                 <Link to={`/getComment/${comentario._id}`} className="deco">
-                                    <p className="text">{comentario.name}</p>
-                                    <p className="text">{comentario.comment}</p>
+                                    <Card border="warning" style={{ width: '18rem' }} bg={`dark`}>
+                                        <Card.Header className="text">{comentario.name}</Card.Header>
+                                        <Card.Body className="cardBody">
+                                            {/* <Card.Title></Card.Title> */}
+                                            <Card.Text className="text">{comentario.comment}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                    <br />
                                 </Link>
                             </div>
                         )
@@ -200,36 +226,40 @@ const Movie = () => {
                     <button onClick={addList} className="buttonCom">Favoritos</button>
                 </div>
                 <div>
-                    {
+                    {/* {
                         score.map(points => {
                             return (
                                 <div className="stars">
                                     <img src={estrella} alt="estrella" className="estrella" />
                                     <h5 className="text points">{points.score}/10</h5>
-                                    <Link to={`/newScore/${movie._id}`}>
-                                        <button className="buttonScore">Puntuar</button>
-                                    </Link>
                                 </div>
                             )
                         })
-                    }
+                    } */}
+                    <div className="stars">
+                        <img src={estrella} alt="estrella" className="estrella" />
+                        <h5 className="text points">{media}/10</h5>
+                    </div>
                 </div>
+                <Link to={`/newScore/${movie._id}`}>
+                    <button className="buttonScore">Puntuar</button>
+                </Link>
             </div>
             <div className="messages">
-                        <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
-                            {succesMessage}
-                        </div>
-                        <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
-                            {errorMessage}
-                        </div>
-                    </div>
+                <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                    {succesMessage}
+                </div>
+                <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                    {errorMessage}
+                </div>
+            </div>
             <div className="poster">
                 <div>
                     <img src={movie.image} className="images1" alt="poster" />
                 </div>
-                <div>
+                <div className="">
                     <h4 className="argument text">Argumento</h4>
-                    <p className="argument text">{movie.argument}</p>
+                    <p className="argument text"><ReadMore>{movie.argument}</ReadMore></p>
                 </div>
             </div>
             <div className="genre">
@@ -240,7 +270,7 @@ const Movie = () => {
                 {
                     cast.map(protas => {
                         return (
-                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                            <Link to={`/actors/${protas._id}`}>
                                 <div className="wrap">
                                     <img src={protas.image} className="images" />
                                     <h6 className="nombres">{protas.name}</h6>
@@ -252,7 +282,7 @@ const Movie = () => {
             </div>
             <div className="addComment">
                 <Link to={`/addComment/${movie._id}`}>
-                    <button className="buttonCom">Añadir comentario</button>
+                    <button className="buttonCom comentario"> + Añade tu comentario</button>
                 </Link>
             </div>
             <h2 className="argument text">Comentarios</h2>
@@ -260,17 +290,33 @@ const Movie = () => {
                 {
                     comment.map(comentario => {
                         return (
-                            <div className="wrap">
+                            <div className="cards">
                                 <Link to={`/getComment/${comentario._id}`} className="deco">
-                                    <p className="text">{comentario.name}</p>
-                                    <p className="text">{comentario.comment}</p>
+                                    <Card border="warning" style={{ width: '18rem' }} bg={`dark`}>
+                                        <Card.Header className="text">{comentario.name}</Card.Header>
+                                        <Card.Body className="cardBody">
+                                            {/* <Card.Title></Card.Title> */}
+                                            <Card.Text className="text">{comentario.comment}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                    <br />
                                 </Link>
                             </div>
                         )
                     })
                 }
             </div>
+            <div className="mods">
+                <Link key={movie._id} to={`/modMovie/${movie._id}`}><button className="buttonMod">Modificar película</button></Link>
+            </div>
+            <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                {succesMessage}
+            </div>
+            <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                {errorMessage}
+            </div>
         </div>
+        
     )
 
     if (!role) return (
@@ -281,7 +327,7 @@ const Movie = () => {
             </div>
             <div className="score">
                 <div className="lista">
-                <Link to={`/login`}><button className="buttonCom">Favoritos</button>  </Link>
+                    <Link to={`/register`}><button className="buttonCom">Favoritos</button>  </Link>
                 </div>
                 <div>
                     {
@@ -290,23 +336,23 @@ const Movie = () => {
                                 <div className="stars">
                                     <img src={estrella} alt="estrella" className="estrella" />
                                     <h5 className="text points">{points.score}/10</h5>
-                                    <Link to={`/login`}>
-                                        <button className="buttonScore">Puntuar</button>
-                                    </Link>
                                 </div>
                             )
                         })
                     }
                 </div>
+                <Link to={`/register`}>
+                    <button className="buttonScore">Puntuar</button>
+                </Link>
             </div>
             <div className="messages">
-                        <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
-                            {succesMessage}
-                        </div>
-                        <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
-                            {errorMessage}
-                        </div>
-                    </div>
+                <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                    {succesMessage}
+                </div>
+                <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                    {errorMessage}
+                </div>
+            </div>
             <div className="poster">
                 <div>
                     <img src={movie.image} className="images1" alt="poster" />
@@ -324,7 +370,7 @@ const Movie = () => {
                 {
                     cast.map(protas => {
                         return (
-                            <Link key={protas._id} to={`/actors/${protas._id}`}>
+                            <Link to={`/actors/${protas._id}`}>
                                 <div className="wrap">
                                     <img src={protas.image} className="images" />
                                     <h6 className="nombres">{protas.name}</h6>
@@ -335,20 +381,30 @@ const Movie = () => {
                 }
             </div>
             <div className="addComment">
-                <Link to={`/login`}>
-                    <button className="buttonScore">Añadir comentario</button>
+                <Link to={`/register`}>
+                    <button className="buttonCom comentario"> + Añade tu comentario</button>
                 </Link>
             </div>
             <h2 className="argument text">Comentarios</h2>
             <div>
-            {
+                {
                     comment.map(comentario => {
                         return (
-                            <div className="wrap">
+                            <div className="cards">
                                 <Link to={`/getComment/${comentario._id}`} className="deco">
-                                    <p className="text">{comentario.name}</p>
-                                    <p className="text">{comentario.comment}</p>
+                                    <Card border="warning" style={{ width: '18rem' }} bg={`dark`}>
+                                        <Card.Header className="text">{comentario.name}</Card.Header>
+                                        <Card.Body className="cardBody">
+                                            {/* <Card.Title></Card.Title> */}
+                                            <Card.Text className="text">{comentario.comment}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                    <br />
                                 </Link>
+                                {/* <Link to={`/getComment/${comentario._id}`} className="deco">
+                                <p className="text">{comentario.name}</p>
+                                <p className="text">{comentario.comment}</p>
+                            </Link> */}
                             </div>
                         )
                     })

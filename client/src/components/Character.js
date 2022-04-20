@@ -136,6 +136,15 @@ const Character = () => {
                     })
                 }
             </div>
+            <div className="mods">
+                <Link key={prota._id} to={`/modCharacter/${prota._id}`}><button className="buttonMod">Modificar</button></Link>
+            </div>
+            <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
+                {succesMessage}
+            </div>
+            <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
+                {errorMessage}
+            </div>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 const AddComment = () => {
     const {movieId} = useParams()
+    // const [header, setHeader] = useState("")
     const [comment, setComment] = useState({})
     const [succesMessage, setSuccesMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -16,6 +17,7 @@ const AddComment = () => {
     const onChangeInput = event => {
         const {name, value} = event.target
         setComment({...comment, [name]: value})
+        // setHeader({...header, [name]: value})
     }
 
     const commentSubmit = async e => {
@@ -39,13 +41,13 @@ const AddComment = () => {
     return (
     <Form className="comment" onSubmit={commentSubmit} >
       <div className="adds">
-         <div className="form-group">
-           <textarea className="textArea" rows="6" name="comment" value={comment.comment} onChange={onChangeInput}></textarea>
-         </div>
-          {/* <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Comentario</Form.Label>
-            <Form.Control type="text" name="name" value={comment.name} placeholder="" onChange={onChangeInput} />
+      {/* <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label></Form.Label>
+            <Form.Control type="text" name="header" value={header} placeholder="Añade un titular para el comentario" onChange={onChangeInput} />
           </Form.Group> */}
+         <div className="form-group">
+           <textarea className="textArea" rows="6" name="comment" value={comment.comment} placeholder="Añade tu comentario" onChange={onChangeInput}></textarea>
+         </div>
         <div className="submit">
           <Button variant="primary" type="submit">
             Comentar

@@ -23,11 +23,14 @@ import Character from "./components/Character";
 import Characters from "./components/Characters";
 import AddCharacter from "./components/AddCharacter";
 import ModCharacter from "./components/ModCharacter";
+// import SearchBar from "./components/SearchBar";
+import ScrollButton from "./components/ScrollButton";
 
 const App = () => {
   return (
         <div className="App">
            <Navigation />
+           {/* <SearchBar /> */}
             <Routes>
 
              <Route path="/register" element={<Register />} />
@@ -55,6 +58,7 @@ const App = () => {
 
             </Routes>
            <Footer />
+           <ScrollButton />
         </div>
   )
 }

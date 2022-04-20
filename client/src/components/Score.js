@@ -29,9 +29,9 @@ const Score =  () => {
             })
             console.log(response)
             setSuccesMessage(response.data.message)
-            // setTimeout(() => {
-            //     navigate("/movies")
-            // }, 3000)
+            setTimeout(() => {
+                navigate(`/movies/${movieId}`)
+            }, 1000)
         } catch (error) {
             setErrorMessage(error.response.data.message)
         }
@@ -61,38 +61,3 @@ const Score =  () => {
 
 }
 export default Score;
-
-
-
-
-                // <div className="text puntuar">
-            //     <h2>Puntuar de 0 a 10</h2>
-            //     <input></input>
-            //     <div className="lista">
-            //         <button  className="buttonCom">Puntuar</button>
-            //     </div>
-            //     <div>
-            //         <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
-            //             {succesMessage}
-            //         </div>
-            //         <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
-            //             {errorMessage}
-            //         </div>
-            //     </div>
-            // </div>
-
-        //     <Form className='form1' onSubmit={scoreSubmit} >
-        //     <h2 className="headline text">Puntua de 0 a 10</h2>
-        //     <Form.Group className="mb-3" controlId="formBasicName">
-        //         <Form.Label className="text"></Form.Label>
-        //         <Form.Control type="text" name="score" value={score.score} placeholder="" onChange={onChangeInput} />
-        //     </Form.Group>
-        //     <div>
-        //         <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
-        //             {succesMessage}
-        //         </div>
-        //         <div className="message_ok text" style={{ display: errorMessage ? "block" : "none" }}>
-        //             {errorMessage}
-        //         </div>
-        //     </div>
-        // </Form>

@@ -9,13 +9,14 @@ const User = require("../models/User");
 
 CommentsRouter.post("/newComment/:movieId", auth, async (req, res) => {
     const { movieId } = req.params
-    const { comment } = req.body
+    const { comment, header } = req.body
     const id = req.user.id
     try {
         let usuario = await User.findById(id)
         let nombre = usuario.name
     let comentario = new Comments({
       comment,
+      header,
       movie: movieId,
       user:id,
       name:nombre
@@ -29,7 +30,7 @@ CommentsRouter.post("/newComment/:movieId", auth, async (req, res) => {
   
     return res.send({
       success: true,
-      message: "Comentario añadido",
+      message: "Muchas gracias por tu comentario",
       newComment
     })
 }
@@ -43,9 +44,9 @@ CommentsRouter.post("/newComment/:movieId", auth, async (req, res) => {
 
 CommentsRouter.put("/modifyComment/:id", auth, async (req,res) =>{
     const {id} = req.params
-    const comment = req.body             
+    const comment = req.body           
     try {
-    await Comments.findByIdAndUpdate(id, comment)    
+    await Comments.findByIdAndUpdate(id, comment)   
     return res.send({
         succes:true,
         message: "Comentario modificado",

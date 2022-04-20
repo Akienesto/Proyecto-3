@@ -53,7 +53,7 @@ CharacterRouter.post("/newCharacter", auth, async (req, res) =>{
     }
 })
 
-CharacterRouter.put("/modifyCharacter/:id", auth, authAdmin, async (req,res) =>{
+CharacterRouter.put("/modifyCharacter/:id", auth, async (req,res) =>{
     const {id} = req.params
     const {name, actors, films, year ,bio, images} = req.body            
     try {

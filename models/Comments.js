@@ -16,7 +16,11 @@ const CommentsSchema = new mongoose.Schema({
     },
     name: {
         type: String
-    }
+    },
+    // header: {
+    //     type: String,
+    //     required: true
+    // }
 },{timestamps:true}
 )
 
