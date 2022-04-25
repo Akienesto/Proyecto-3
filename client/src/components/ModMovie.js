@@ -49,7 +49,7 @@ const ModMovie = () => {
       setSuccesMessage(response.data.message)
       setTimeout(() => {
         navigate(`/movies/${movieId}`)
-      }, 3000)
+      }, 1000)
     } catch (error) {
       setErrorMessage(error.response.data.message)
     }

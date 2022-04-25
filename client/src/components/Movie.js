@@ -4,22 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import estrella from "..//imagenes/estrella.png"
 import Card from 'react-bootstrap/Card'
-
-const ReadMore = ({ children }) => {
-    const text = children;
-    const [isReadMore, setIsReadMore] = useState();
-    const toggleReadMore = () => {
-        setIsReadMore(!isReadMore);
-    };
-    return (
-        <p className="text">
-        {isReadMore ? text.slice(0, 250) : text}
-        <span onClick={toggleReadMore} className="read-or-hide">
-            {isReadMore ? "   ...read more" : "    show less"}
-        </span>
-        </p>
-    );
-    };
+import ReadMore from "./ReadMore";
+import ReadMoreCom from "./ReadMoreCom";
 
 const Movie = () => {
     const { movieId } = useParams()
@@ -28,6 +14,7 @@ const Movie = () => {
     const [score, setScore] = useState([])
     const [points, setPoints] = useState([])
     const [comment, setComment] = useState([])
+    const [arg, setArg] = useState([])
     const [likes, setLikes] = useState([])
     const role = localStorage.getItem("role")
     const [succesMessage, setSuccesMessage] = useState(null)
@@ -46,11 +33,12 @@ const Movie = () => {
             setComment(response.data.movie.comment)
             setLikes(response.data.movie.likes)
             setPoints(response.data.movie.score.score)
+            setArg(response.data.movie.argument)
         }
         getMovie()
 
     }, [])
-    
+
     const deleteMovie = async () => {
         try {
             const borrar = await axios.delete(`/api/deleteMovie/${movieId}`, {
@@ -152,9 +140,9 @@ const Movie = () => {
                 <div>
                     <img src={movie.image} className="images1" alt="poster" />
                 </div>
-                <div>
+                <div className="">
                     <h4 className="argument text">Argumento</h4>
-                    <p className="argument text">{movie.argument}</p>
+                    <p className="argument text"><ReadMore>{arg}</ReadMore></p>
                 </div>
             </div>
             <div className="genre">
@@ -183,7 +171,7 @@ const Movie = () => {
             </div>
             <h2 className="argument text">Comentarios</h2>
             <div>
-                {
+            {
                     comment.map(comentario => {
                         return (
                             <div className="cards">
@@ -192,7 +180,7 @@ const Movie = () => {
                                         <Card.Header className="text">{comentario.name}</Card.Header>
                                         <Card.Body className="cardBody">
                                             {/* <Card.Title></Card.Title> */}
-                                            <Card.Text className="text">{comentario.comment}</Card.Text>
+                                            <Card.Text className="text"><ReadMoreCom>{comentario.comment}</ReadMoreCom></Card.Text>
                                         </Card.Body>
                                     </Card>
                                     <br />
@@ -259,7 +247,7 @@ const Movie = () => {
                 </div>
                 <div className="">
                     <h4 className="argument text">Argumento</h4>
-                    <p className="argument text"><ReadMore>{movie.argument}</ReadMore></p>
+                    <p className="argument text"><ReadMore>{arg}</ReadMore></p>
                 </div>
             </div>
             <div className="genre">
@@ -296,7 +284,7 @@ const Movie = () => {
                                         <Card.Header className="text">{comentario.name}</Card.Header>
                                         <Card.Body className="cardBody">
                                             {/* <Card.Title></Card.Title> */}
-                                            <Card.Text className="text">{comentario.comment}</Card.Text>
+                                            <Card.Text className="text"><ReadMoreCom>{comentario.comment}</ReadMoreCom></Card.Text>
                                         </Card.Body>
                                     </Card>
                                     <br />
@@ -316,7 +304,7 @@ const Movie = () => {
                 {errorMessage}
             </div>
         </div>
-        
+
     )
 
     if (!role) return (

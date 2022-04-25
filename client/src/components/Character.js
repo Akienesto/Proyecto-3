@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ReadMore from "./ReadMore";
 
 const Character = () => {
     const { characterId } = useParams()
     const [prota, setCharacter] = useState({})
+    const [bio, setBio] = useState([])
     const [films, setFilms] = useState([])
     const [actores, setActores] = useState([])
     const role = localStorage.getItem("role")
@@ -20,6 +22,7 @@ const Character = () => {
 
             console.log(response)
             setCharacter(response.data.character)
+            setBio(response.data.character.bio)
             setFilms(response.data.character.films)
             setActores(response.data.character.actors)
         }
@@ -51,7 +54,7 @@ const Character = () => {
                 <img src={prota.image} className="images1" />
                 <p className="text">Fecha de creación : {prota.year}</p>
                 <h2 className="filmografia text">Biografía</h2>
-                <p className="text">{prota.bio}</p>
+                <p className="text"><ReadMore>{bio}</ReadMore></p>
                 <h2 className="filmografia text">Filmografía</h2>
                 <div className="wrapFilms">
                     {
@@ -103,7 +106,7 @@ const Character = () => {
             <div className="actors">
                 <h2 className="text">{prota.name}</h2>
                 <img src={prota.image} className="images1" />
-                <p className="text">{prota.bio}</p>
+                <p className="text"><ReadMore>{bio}</ReadMore></p>
                 <p className="text">Fecha de creación : {prota.year}</p>
             </div>
             <div>

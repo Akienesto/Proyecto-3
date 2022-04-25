@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ReadMore from "./ReadMore";
 
 const Actor = () => {
     const { actorId } = useParams()
     const [prota, setActor] = useState({})
     const [films, setFilms] = useState([])
+    const [bio, setBio] = useState([])
     const role = localStorage.getItem("role")
     const [succesMessage, setSuccesMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -20,6 +22,7 @@ const Actor = () => {
             console.log(response)
             setActor(response.data.actor)
             setFilms(response.data.actor.films)
+            setBio(response.data.actor.bio)
         }
         getActor()
 
@@ -50,7 +53,7 @@ const Actor = () => {
                     <img src={prota.image} className="images1" />
                 </div>
                 <div className="actorBio1">
-                    <p className="text">{prota.bio}</p>
+                    <p className="text"><ReadMore>{bio}</ReadMore></p>
                 </div>
                 {/* <p>{prota.characters}</p> */}
             </div>
@@ -62,7 +65,7 @@ const Actor = () => {
                         films.map(pelis => {
                             return (
                                 <Link key={pelis._id} to={`/movies/${pelis._id}`}>
-                                    <div className="wrap">
+                                    <div className="wrap1">
                                         <div className="divs">
                                             <img src={pelis.image} className="images" />
                                             <h6 className="nombres">{pelis.title}</h6>
@@ -95,7 +98,7 @@ const Actor = () => {
                     <img src={prota.image} className="images1" />
                 </div>
                 <div className="actorBio1">
-                    <p className="text">{prota.bio}</p>
+                    <p className="text"><ReadMore>{bio}</ReadMore></p>
                 </div>
                 {/* <p>{prota.characters}</p> */}
             </div>
@@ -106,7 +109,7 @@ const Actor = () => {
                     films.map(pelis => {
                         return (
                             <Link key={pelis._id} to={`/movies/${pelis._id}`}>
-                                <div className="wrap">
+                                <div className="wrap1">
                                     <img src={pelis.image} className="images" />
                                     <h6 className="nombres">{pelis.title}</h6>
                                 </div>

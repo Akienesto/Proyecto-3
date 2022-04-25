@@ -40,7 +40,7 @@ const AddComment = () => {
 
     return (
     <Form className="comment" onSubmit={commentSubmit} >
-      <div className="adds">
+      <div className="adds1">
       {/* <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label></Form.Label>
             <Form.Control type="text" name="header" value={header} placeholder="Añade un titular para el comentario" onChange={onChangeInput} />

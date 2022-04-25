@@ -265,7 +265,7 @@ UserRouter.post("/list/:movieId", auth, async (req, res) => {
 
 
 const accesToken =(user) =>{
-    return jwt.sign(user, process.env.ACCES_TOKEN_SECRET,{expiresIn:"7d"})
+    return jwt.sign(user, process.env.ACCES_TOKEN_SECRET,{expiresIn:"1d"})
 }
 module.exports = UserRouter;
 

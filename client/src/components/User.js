@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import Movies from "./Movies";
 
 const User = () => {
     // const {userId} = useParams()

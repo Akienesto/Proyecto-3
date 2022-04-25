@@ -3,7 +3,7 @@
   height: 150px;
   width: 120px;
   display: inline;
-  margin: 5px;
+  margin: 3px;
 }
 .images1 {
   height: 350px;
@@ -73,9 +73,14 @@
 }
 .searchBar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .font {
   font-size: 25px;
+}
+.buttonGroup {
+  margin-left: 180px;
 }
 
 /* Footer */
@@ -132,7 +137,7 @@
   display: flex;
   flex-wrap: wrap;
   display:inline-block;
-  margin: 21px;
+  margin: 24px;
   border: black solid 2px;
   border-radius: 5px;
   background-color:rgb(51, 51, 54);
@@ -216,6 +221,9 @@
   text-overflow: ellipsis;
   overflow:auto;
 }
+.readMore {
+  color: rgb(240, 228, 70);
+}
 
 /* Actor */
 .actors {
@@ -237,8 +245,10 @@
   background-color: red;
   border-radius: 5px;
   border: 1px solid black;
-  width: 80px;
+  width: 90px;
   color:white;
+  padding: 5px;
+  font-weight: bold;
 }
 .buttonMod {
   background-color:  rgb(2, 117, 216);
@@ -261,20 +271,28 @@
 .actorBio1 {
   margin: 15px;
 }
+.wrap1 {
+  display: flex;
+  flex-wrap: wrap;
+  display:inline-block;
+  margin: 17px;
+  border: black solid 2px;
+  border-radius: 5px;
+  background-color:rgb(51, 51, 54);
+}
 
 /* Logout */
 .logout {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 50px;
 }
-.logoutButton {
-  margin: 20px;
-  background-color:  rgb(240, 228, 70);
-  border-radius: 5px;
-  border: 1px solid black;
-  color:black;
+.logoutText {
+  margin: 40px;
+}
+.logoutBut {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 /* Comments */
@@ -293,11 +311,11 @@
   padding: 5px;
   font-weight: bold;
 }
-/* .adds {
+.adds1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-} */
+}
 .comentario {
   font-weight: bold;
   font-size: 18px;
@@ -316,6 +334,15 @@
 }
 .card1 {
   margin: 10px;
+}
+.arrow {
+  height: 35px;
+  width: 40px;
+}
+.mods1 {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px;
 }
 
 /* Puntuar */
@@ -348,6 +375,11 @@
   border: 2px solid rgb(240, 228, 70);
   margin: 2px;
 }
+.userName {
+  color: white;
+  margin: 0px;
+  padding: 0px;
+}
 
 /* MEDIA QUERY */
 @media only screen and (max-width: 700px) {
@@ -372,7 +404,7 @@
     width: 330px;
   }
   .textArea {
-    width: 300px;
+    width: 290px;
   }
   .score {
     display: flex;
@@ -398,6 +430,7 @@
   .searchBar {
     display: flex;
     flex-direction: row;
+    margin-right: 10px;
   }
   .lupa {
     height: 25px;
@@ -414,6 +447,19 @@
     flex-direction: column;
     align-items: center;
     margin: 10px;
+  }
+  .buttonGroup {
+    margin-left: 15px;
+  }
+  .logoutText {
+    margin: 30px;
+    text-align: center;
+  }
+  .mods1 {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px;
+    margin-left: 120px;
   }
 
 }

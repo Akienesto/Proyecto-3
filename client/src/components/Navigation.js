@@ -10,6 +10,10 @@ import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "..//imagenes/logo.png"
 import lupa from "..//imagenes/lupa.png"
+import UserName from "./UserName";
+import { ButtonGroup } from "react-bootstrap";
+import { SplitButton } from "react-bootstrap";
+import usuario from "..//imagenes/usuario.jpg"
 
 
 function Navigation() {
@@ -20,42 +24,44 @@ function Navigation() {
     return (
       <Navbar expand="lg" className="Navbar">
         <Container className="links">
-          <div>
             <Navbar.Brand href="/"><img src={logo} className="logo" /></Navbar.Brand>
-          </div>
-          <div>
             <Nav.Link href="/Movies"><p className="text font">Peliculas</p></Nav.Link>
-          </div>
-          <div>
             <Nav.Link href="/Actors"><p className="text font">Actores</p></Nav.Link>
-          </div>
-          <div>
             <Nav.Link href="/characters"><p className="text font">Personajes</p></Nav.Link>
+        </Container>
+        <div className="searchBar">
+          <div>
+            <Form className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success" className="text"><img src={lupa} className="lupa" /></Button>
+            </Form>
           </div>
-          </Container>
-          <div className="searchBar">
-          <div>
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success" className="text"><img src={lupa} className="lupa" /></Button>
-          </Form>
-        </div>
-          <div>
-            <DropdownButton align="end" title="Usuario" id="dropdown-menu-align-end" className="drop">
-              {/* <Link to="/login" className="reg">Login</Link>
-              <Link to="/register" className="reg">Registrarse</Link> */}
-              <Link to="/user" className="reg">Mi perfil</Link>
-              <Link to="/addMovie" className="reg">Añadir película</Link>
-              <Link to="/addActor" className="reg">Añadir actor</Link>
-              <Link to="/addCharacter" className="reg">Añadir personaje</Link>
-              <Dropdown.Divider />
-              <Link to="/logout" className="reg">Logout</Link>
-            </DropdownButton>
+          <div className="buttonGroup">
+            <Dropdown as={ButtonGroup}>
+              <div>
+                {['start'].map((direction) => (
+                  <SplitButton
+                    key={direction}
+                    id={`dropdown-button-drop-${direction}`}
+                    drop={direction}
+                    variant="primary"
+                    title={<UserName />}
+                  >
+                    <Link to="/user" className="reg">Mi perfil</Link>
+                    <Link to="/addMovie" className="reg">Añadir película</Link>
+                    <Link to="/addActor" className="reg">Añadir actor</Link>
+                    <Link to="/addCharacter" className="reg">Añadir personaje</Link>
+                    <Dropdown.Divider />
+                    <Link to="/logout" className="reg">Logout</Link>
+                  </SplitButton>
+                ))}
+              </div>
+            </Dropdown>
           </div>
         </div>
       </Navbar>
@@ -100,35 +106,35 @@ function Navigation() {
   const navbarLogin = () => {
     return (
       <Navbar expand="lg" className="Navbar">
-      <Container className="links">
-        <Navbar.Brand href="/"><img src={logo} className="logo" /></Navbar.Brand>
-        <Nav.Link href="/Movies"><p className="text font">Peliculas</p></Nav.Link>
-        <Nav.Link href="/Actors"><p className="text font">Actores</p></Nav.Link>
-        <Nav.Link href="/characters"><p className="text font">Personajes</p></Nav.Link>
-      </Container>
-      <div className="searchBar">
-        <div>
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success"><img src={lupa} className="lupa" /></Button>
-          </Form>
+        <Container className="links">
+          <Navbar.Brand href="/"><img src={logo} className="logo" /></Navbar.Brand>
+          <Nav.Link href="/Movies"><p className="text font">Peliculas</p></Nav.Link>
+          <Nav.Link href="/Actors"><p className="text font">Actores</p></Nav.Link>
+          <Nav.Link href="/characters"><p className="text font">Personajes</p></Nav.Link>
+        </Container>
+        <div className="searchBar">
+          <div>
+            <Form className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success"><img src={lupa} className="lupa" /></Button>
+            </Form>
+          </div>
+          <div>
+            <DropdownButton align="end" title="Login" id="dropdown-menu-align-end" className="drop">
+              <Link to="/login" className="reg">Login</Link>
+              <Dropdown.Divider />
+              <Link to="/register" className="reg">Registrarse</Link>
+            </DropdownButton>
+          </div>
         </div>
-        <div>
-          <DropdownButton align="end" title="Registrate" id="dropdown-menu-align-end" className="drop">
-          <Link to="/login" className="reg">Login</Link>
-          <Dropdown.Divider />
-          <Link to="/register" className="reg">Registrarse</Link>
-          </DropdownButton>
-        </div>
-      </div>
-    </Navbar>
-  )
-}
+      </Navbar>
+    )
+  }
   // if (!role) return navbarLogin()
   return (
     <div>

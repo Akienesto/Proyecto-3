@@ -1,12 +1,12 @@
 const express = require("express");
 const ImageRouter = express.Router();
 const cloudinary = require("cloudinary").v2;
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 require('dotenv').config()
 const auth = require("../middleware/auth");
 const Actors = require("../models/Actors");
-// ImageRouter.use(bodyParser.json());
-//   ImageRouter.use(bodyParser.urlencoded({ extended: true }));
+ImageRouter.use(bodyParser.json());
+  ImageRouter.use(bodyParser.urlencoded({ extended: true }));
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME,

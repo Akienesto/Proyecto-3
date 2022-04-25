@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Card from 'react-bootstrap/Card'
+import flecha from "..//imagenes/flecha.png"
 
 const Comment = () => {
     const { commentId } = useParams()
@@ -13,6 +14,7 @@ const Comment = () => {
     const role = localStorage.getItem("role")
     const navigate = useNavigate()
     const [user, setUser] = useState({})
+    const [movie, setMovie] = useState([])
 
     useEffect(() => {
         const getcomment = async () => {
@@ -21,6 +23,7 @@ const Comment = () => {
             console.log(response)
             setComment(response.data.comment)
             setUser(response.data.comment.user)
+            setMovie(response.data.comment.movie)
         }
         getcomment()
 
@@ -84,8 +87,9 @@ const Comment = () => {
                     <br />
                 </Link>
             </div>
-            <div className="mods">
-                <Link  to={`/modComment/${comentario._id}`}><button className="buttonMod">Modificar</button></Link>
+            <div className="mods1">
+                <Link to={`/modComment/${comentario._id}`}><button className="buttonMod">Modificar</button></Link>
+                <Link to={`/movies/${movie}`} className="reg"><img src={flecha} className="arrow" /></Link>
             </div>
             <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
                 {succesMessage}

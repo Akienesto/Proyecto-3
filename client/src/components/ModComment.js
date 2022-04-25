@@ -8,21 +8,41 @@ import { useNavigate } from "react-router-dom"
 const ModComment = () => {
   const { commentId } = useParams()
   const [comment, setComment] = useState({})
+  const [user, setUser] = useState([])
+  const [UserName, setUserName] = useState([])
+  const [movie, setMovie] = useState([])
   const [succesMessage, setSuccesMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
 
   useEffect(() => {
-    const getComentario = async () => {
-        const response = await axios.get(`/api/getComment/${commentId}`,)
+      const getUser = async () => {
+          const response = await axios.get(`/api/getUser`, {
+              headers: {
+                  "Authorization": token
+              }
+          })
 
-        console.log(response)
-        setComment(response.data.comment)
+          console.log(response)
+          setUser(response.data.user)
+      }
+      getUser()
+
+  }, [])
+
+  useEffect(() => {
+    const getComentario = async () => {
+      const response = await axios.get(`/api/getComment/${commentId}`,)
+
+      console.log(response)
+      setComment(response.data.comment)
+      setUserName(response.data.comment.user)
+      setMovie(response.data.comment.movie)
     }
     getComentario()
 
-}, [])
+  }, [])
 
   const onChangeInput = event => {
     const { name, value } = event.target
@@ -30,26 +50,29 @@ const ModComment = () => {
   }
   const commentSubmit = async e => {
     e.preventDefault()
-    try {
-      const response = await axios.put(`/api/modifyComment/${commentId}`, { ...comment }, {
-        headers: {
-          "Authorization": token
-        }
-      })
-      console.log(response)
-      setSuccesMessage(response.data.message)
-      setTimeout(()=>{
-        navigate(`/getComment/${commentId}`)
-      },3000)
-      setComment(response.data.comment)
-    } catch (error) {
-      setErrorMessage(error.response.data.message)
-    }
+    
+      try {
+        if (user._id === UserName._id) {
+        const response = await axios.put(`/api/modifyComment/${commentId}`, { ...comment }, {
+          headers: {
+            "Authorization": token
+          }
+        })
+        console.log(response)
+        setSuccesMessage(response.data.message)
+        setTimeout(() => {
+          navigate(`/movies/${movie}`)
+        }, 1000)
+        setComment(response.data.comment)
+      }
+      } catch (error) {
+        setErrorMessage(error.response.data.message)
+      }
   }
 
   return (
     <Form onSubmit={commentSubmit} >
-      <div className="adds">
+      <div className="adds1">
         <div>
           <textarea type="text" className="textArea" rows="6" name="comment" value={comment.comment} onChange={onChangeInput}>{comment.comment}</textarea>
         </div>
