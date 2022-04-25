@@ -1,6 +1,6 @@
 # Proyecto-3
 ### Base de datos de películas y actores
-La idea del proyecto es crear una base de datos de películas y actores y poder realizar busquedas de todo tipo dentro de ella. La propuesta es que todos estos datos sean aportados por los usuarios registrados. Una vez registrados, los usuarios tendran la opción de añadir películas, actores y comentarios. También podrán crear listas de sus películas favoritas y puntuarlas y/o darles likes.
+La idea del proyecto es crear una base de datos de películas y actores y poder realizar busquedas de todo tipo dentro de ella. La propuesta es que todos estos datos sean aportados por los usuarios registrados. Una vez registrados, los usuarios tendran la opción de añadir películas, actores y comentarios. También podrán crear listas de sus películas favoritas y puntuarlas y/o darles likes.Se ha diseñado principalmente para uso en móvil,pero también está adaptado para su visualización en pantallas más grandes.
 ***
 ### Tecnologías utilizadas
 ![image](https://user-images.githubusercontent.com/98311389/158407417-29eef77d-c4a9-4c55-afc5-a55c19a63c47.png)
