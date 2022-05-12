@@ -13,8 +13,6 @@ const UserName = () => {
                     "Authorization": token
                 }
             })
-
-            console.log(response)
             setUser(response.data.user)
         }
         getUser()

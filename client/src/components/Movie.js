@@ -10,9 +10,9 @@ import ReadMoreCom from "./ReadMoreCom";
 const Movie = () => {
     const { movieId } = useParams()
     const [movie, setMovie] = useState([])
+    const [user, setUser] = useState([])
     const [cast, setCast] = useState([])
     const [score, setScore] = useState([])
-    const [points, setPoints] = useState([])
     const [comment, setComment] = useState([])
     const [arg, setArg] = useState([])
     const [likes, setLikes] = useState([])
@@ -32,10 +32,24 @@ const Movie = () => {
             setScore(response.data.movie.score)
             setComment(response.data.movie.comment)
             setLikes(response.data.movie.likes)
-            setPoints(response.data.movie.score.score)
             setArg(response.data.movie.argument)
         }
         getMovie()
+
+    }, [])
+
+    useEffect(() => {
+        const getUser = async () => {
+            const response = await axios.get(`/api/getUser`, {
+                headers: {
+                    "Authorization": token
+                }
+            })
+
+            console.log(response)
+            setUser(response.data.user._id)
+        }
+        getUser()
 
     }, [])
 
@@ -70,37 +84,15 @@ const Movie = () => {
 
     }
 
-    function ArrayAvg(myArray) {
-        let i = 0, summ = 0, ArrayLen = myArray.length;
-        while (i < ArrayLen) {
-            summ = summ + myArray[i++];
-        }
-        return summ / ArrayLen;
-    }
-    let myArray = [points];
-    let media = ArrayAvg(myArray);
-    console.log(media)
+    let puntos = score.map(function (points) {
 
-    // let sumatoriaObjeto = points.reduce(function(acumulador, siguienteValor){
-    //     return {
-    //       points: acumulador.points + siguienteValor.points
-    //     };
-    //   }, {points: 0});
+        return points.score;
 
-    //   let promedioEdad = sumatoriaObjeto.points / points.length;
-    //   console.log(promedioEdad)
+    });
 
-    // function mediaCalc(list){
-    //     const sumList = list.reduce(function(valuesAc = 0, newElement){
-    //         return valuesAc + newElement;
-    //     });
-
-    //     const media = sumList / list.length;
-
-    //     return media;
-    // }
-
-    // console.log(mediaCalc([points]))
+    var numbers = (puntos)
+    var total = numbers.reduce((a, b) => a + + b, 0)
+    let media = total / puntos.length
 
     if (role == 1) return (
         <div>
@@ -112,17 +104,9 @@ const Movie = () => {
                 <div className="lista">
                     <button onClick={addList} className="buttonCom">Favoritos</button>
                 </div>
-                <div>
-                    {
-                        score.map(points => {
-                            return (
-                                <div className="stars">
-                                    <img src={estrella} alt="estrella" className="estrella" />
-                                    <h5 className="text points">{points.score}/10</h5>
-                                </div>
-                            )
-                        })
-                    }
+                <div className="stars">
+                    <img src={estrella} alt="estrella" className="estrella" />
+                    <h5 className="text points">{media.toFixed(1)}/10</h5>
                 </div>
                 <Link to={`/newScore/${movie._id}`}>
                     <button className="buttonScore">Puntuar</button>
@@ -171,7 +155,7 @@ const Movie = () => {
             </div>
             <h2 className="argument text">Comentarios</h2>
             <div>
-            {
+                {
                     comment.map(comentario => {
                         return (
                             <div className="cards">
@@ -213,21 +197,9 @@ const Movie = () => {
                 <div className="lista">
                     <button onClick={addList} className="buttonCom">Favoritos</button>
                 </div>
-                <div>
-                    {/* {
-                        score.map(points => {
-                            return (
-                                <div className="stars">
-                                    <img src={estrella} alt="estrella" className="estrella" />
-                                    <h5 className="text points">{points.score}/10</h5>
-                                </div>
-                            )
-                        })
-                    } */}
-                    <div className="stars">
-                        <img src={estrella} alt="estrella" className="estrella" />
-                        <h5 className="text points">{media}/10</h5>
-                    </div>
+                <div className="stars">
+                    <img src={estrella} alt="estrella" className="estrella" />
+                    <h5 className="text points">{media.toFixed(1)}/10</h5>
                 </div>
                 <Link to={`/newScore/${movie._id}`}>
                     <button className="buttonScore">Puntuar</button>
@@ -317,17 +289,9 @@ const Movie = () => {
                 <div className="lista">
                     <Link to={`/register`}><button className="buttonCom">Favoritos</button>  </Link>
                 </div>
-                <div>
-                    {
-                        score.map(points => {
-                            return (
-                                <div className="stars">
-                                    <img src={estrella} alt="estrella" className="estrella" />
-                                    <h5 className="text points">{points.score}/10</h5>
-                                </div>
-                            )
-                        })
-                    }
+                <div className="stars">
+                    <img src={estrella} alt="estrella" className="estrella" />
+                    <h5 className="text points">{media.toFixed(1)}/10</h5>
                 </div>
                 <Link to={`/register`}>
                     <button className="buttonScore">Puntuar</button>

@@ -81,8 +81,8 @@ MovieRouter.get("/getMovie/:id", async (req, res)=>{
     const {id} = req.params
     try {
         let movie = await Movie.findById(id).
-        populate({ path: 'comment', select: ' comment name' }).
-        populate({ path: 'score', select: 'score' }).
+        populate({ path: 'comment', select: ' comment name user' }).
+        populate({ path: 'score', select: 'score user' }).
         populate({ path: 'cast', select: 'name image' }).
         populate({ path: 'characters', select: 'name' })
         return res.send({

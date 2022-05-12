@@ -40,7 +40,7 @@ const User = () => {
                         movies.map(pelis => {
                             return (
                                 <Link key={pelis._id} to={`/movies/${pelis._id}`}>
-                                    <div className="wrap">
+                                    <div className="wrap2">
                                         <img src={pelis.image} className="images" />
                                         <h6 className="nombres deco">{pelis.title}</h6>
                                     </div>

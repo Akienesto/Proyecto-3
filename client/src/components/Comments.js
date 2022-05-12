@@ -62,7 +62,7 @@ const Comment = () => {
             </div>
             <div className="mods">
                 <button onClick={deleteComment} className="buttonDel">Borrar</button>
-                {/* <Link key={comment._id} to={`/modComment/${comment._id}`}><button className="buttonMod">Modificar</button></Link> */}
+                <Link to={`/modComment/${comentario._id}`}><button className="buttonMod">Modificar</button></Link>
             </div>
             <div className="message_ok text" style={{ display: succesMessage ? "block" : "none" }}>
                 {succesMessage}

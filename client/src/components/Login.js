@@ -27,7 +27,6 @@ const Login = () => {
       setSuccesMessage(response.data.message)
       localStorage.setItem("token", response.data.token)
       localStorage.setItem("role", response.data.user.role)
-      // localStorage.setItem("_id", response.data._id)
       // setTimeout(()=>{
       // navigate("/home")
       window.location.href = `/`
